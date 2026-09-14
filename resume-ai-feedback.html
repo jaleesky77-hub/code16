@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이력서·자소서 AI 첨삭 | 휴엔엠 PIB 컨설팅</title>
+<style>
+  :root {
+    --navy: #1b2a4a;
+    --gold: #c9a24b;
+    --coral: #e8664f;
+    --teal: #2ea59a;
+    --cream: #faf7f0;
+    --ink: #24242a;
+    --muted: #6b6f76;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.6;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,247,240,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(27,42,74,0.08);
+  }
+  header .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 16px; padding-bottom: 16px;
+  }
+  .logo { font-weight: 800; font-size: 20px; color: var(--navy); letter-spacing: -0.5px; }
+  .logo span { color: var(--coral); }
+  .brand-tag { font-size: 11.5px; font-weight: 600; color: var(--muted); margin-top: 2px; }
+  nav ul { list-style: none; display: flex; gap: 28px; }
+  nav a { font-size: 15px; font-weight: 600; color: var(--navy); }
+  .btn-nav {
+    background: var(--navy); color: #fff !important; padding: 10px 20px;
+    border-radius: 999px; font-size: 14px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 90px 0 70px;
+    background: linear-gradient(135deg, #1b2a4a 0%, #2c3f68 55%, #3a4f7d 100%);
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(232,102,79,0.35), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(46,165,154,0.35), transparent 45%),
+                radial-gradient(circle at 50% 10%, rgba(201,162,75,0.3), transparent 35%);
+  }
+  .hero .wrap { position: relative; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    background: rgba(255,255,255,0.14); padding: 6px 16px; border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 800; letter-spacing: -1px; margin-bottom: 18px;
+  }
+  .hero h1 em { font-style: normal; color: #f4c98a; }
+  .hero p.sub {
+    font-size: clamp(15px, 2vw, 18px);
+    color: rgba(255,255,255,0.85);
+    max-width: 640px; margin: 0 auto 32px;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  }
+  .btn-primary {
+    background: var(--coral); color: #fff; padding: 16px 34px;
+    border-radius: 999px; font-weight: 700; font-size: 16px;
+    box-shadow: 0 12px 24px rgba(232,102,79,0.35);
+    transition: transform .15s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1.5px solid rgba(255,255,255,0.5); color: #fff;
+    padding: 16px 30px; border-radius: 999px; font-weight: 600; font-size: 16px;
+  }
+
+  .color-strip {
+    display: flex; height: 8px;
+  }
+  .color-strip span { flex: 1; }
+
+  /* Section shared */
+  section { padding: 80px 0; }
+  .section-head { text-align: center; margin-bottom: 48px; }
+  .section-head .tag {
+    color: var(--coral); font-weight: 700; font-size: 13px; letter-spacing: 1px;
+  }
+  .section-head h2 {
+    font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--navy);
+    margin-top: 10px; letter-spacing: -0.5px;
+  }
+  .section-head p { color: var(--muted); margin-top: 12px; font-size: 15px; }
+
+  /* Problem / who it's for */
+  .who { background: #fff; }
+  .who-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .who-card {
+    background: var(--cream); border-radius: 18px; padding: 26px 22px;
+    border: 1px solid rgba(27,42,74,0.08);
+  }
+  .who-card .num {
+    display: inline-flex; width: 32px; height: 32px; border-radius: 10px;
+    align-items: center; justify-content: center; font-weight: 800; font-size: 14px;
+    color: #fff; background: var(--coral); margin-bottom: 12px;
+  }
+  .who-card:nth-child(2) .num { background: var(--teal); }
+  .who-card:nth-child(3) .num { background: var(--navy); }
+  .who-card h3 { font-size: 16px; color: var(--navy); margin-bottom: 8px; }
+  .who-card p { font-size: 13.5px; color: var(--muted); }
+
+  /* Pricing — upgraded, high-impact tone */
+  .pricing {
+    background: linear-gradient(180deg, var(--cream) 0%, #fff2e8 100%);
+    position: relative;
+  }
+  .price-glow {
+    max-width: 660px; margin: 0 auto; position: relative;
+    border-radius: 30px; padding: 3px;
+    background: linear-gradient(135deg, var(--coral), var(--gold) 45%, var(--teal));
+    box-shadow: 0 30px 60px rgba(232,102,79,0.25);
+  }
+  .price-ribbon {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--navy); color: #fff; font-size: 12.5px; font-weight: 800;
+    padding: 8px 22px; border-radius: 999px; letter-spacing: 0.5px;
+    box-shadow: 0 8px 16px rgba(27,42,74,0.35); z-index: 2;
+  }
+  .price-card {
+    background: #fff; border-radius: 27px; overflow: hidden;
+  }
+  .price-head {
+    background: linear-gradient(135deg, #1b2a4a, #2c3f68 60%, #3a4f7d);
+    color: #fff; padding: 40px 36px 30px;
+    text-align: center;
+  }
+  .price-head .badge {
+    display: inline-block; background: rgba(255,255,255,0.15);
+    font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 999px;
+    margin-bottom: 16px; letter-spacing: 0.5px;
+  }
+  .price-head h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .price-head .value-prop {
+    font-size: 14px; color: rgba(255,255,255,0.85); max-width: 480px;
+    margin: 0 auto 24px; line-height: 1.7;
+  }
+  .price-amount { font-size: 46px; font-weight: 800; color: #f4c98a; }
+  .price-amount span { font-size: 16px; font-weight: 600; opacity: 0.85; margin-left: 4px; color: #fff; }
+  .price-body { padding: 32px 36px 36px; }
+  .price-body p.lead {
+    font-size: 14px; color: var(--muted); text-align: center; margin-bottom: 20px; font-weight: 600;
+  }
+  .chip-row {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 26px;
+  }
+  .chip {
+    font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 999px;
+  }
+  .chip:nth-child(1) { background: rgba(232,102,79,0.12); color: var(--coral); }
+  .chip:nth-child(2) { background: rgba(46,165,154,0.12); color: var(--teal); }
+  .chip:nth-child(3) { background: rgba(201,162,75,0.18); color: #8a6a26; }
+  .include-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; }
+  .include-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 15px; color: var(--ink); font-weight: 500;
+  }
+  .check {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(46,165,154,0.12); color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; margin-top: 1px;
+  }
+  .btn-pay {
+    display: block; width: 100%; text-align: center;
+    background: linear-gradient(135deg, var(--coral), #f08a5c);
+    color: #fff; font-size: 19px; font-weight: 800;
+    padding: 22px; border-radius: 18px;
+    box-shadow: 0 14px 28px rgba(232,102,79,0.35);
+    transition: transform .15s ease;
+    animation: pulseGlow 2.4s ease-in-out infinite;
+  }
+  .btn-pay:hover { transform: translateY(-2px); }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 14px 28px rgba(232,102,79,0.35); }
+    50% { box-shadow: 0 18px 42px rgba(232,102,79,0.55); }
+  }
+  .price-note {
+    text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 14px;
+  }
+
+  /* Application form */
+  .apply { background: #fff; }
+  .apply-box {
+    max-width: 620px; margin: 0 auto;
+    background: var(--cream); border-radius: 24px; padding: 40px;
+    border: 1px solid rgba(27,42,74,0.08);
+  }
+  .form-row { margin-bottom: 18px; }
+  .form-row label {
+    display: block; font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 8px;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; padding: 14px 16px; border-radius: 12px;
+    border: 1.5px solid rgba(27,42,74,0.15); font-size: 14px;
+    background: #fff; font-family: inherit;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    outline: none; border-color: var(--teal);
+  }
+  .btn-submit {
+    width: 100%; background: var(--navy); color: #fff; font-weight: 700;
+    font-size: 16px; padding: 16px; border: none; border-radius: 14px; cursor: pointer;
+  }
+  .apply-note { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 14px; }
+
+  /* Footer */
+  footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 40px 0; text-align: center; }
+  footer .logo { color: #fff; margin-bottom: 10px; }
+  footer p { font-size: 13px; }
+
+  @media (max-width: 860px) {
+    .who-grid { grid-template-columns: 1fr; }
+    nav { display: none; }
+  }
+  @media (max-width: 480px) {
+    .price-head, .price-body { padding-left: 24px; padding-right: 24px; }
+    .apply-box { padding: 28px 20px; }
+    .price-amount { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div>
+      <div class="logo">합격<span>AI</span></div>
+      <div class="brand-tag">휴엔엠 PIB 컨설팅</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#who">이런 분께</a></li>
+        <li><a href="#pricing">가격</a></li>
+        <li><a href="#apply">신청하기</a></li>
+      </ul>
+    </nav>
+    <a href="#apply" class="btn-nav">신청하기</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">휴엔엠 PIB 컨설팅 · 20년 국제여객 서비스 경력 · 공기업 면접위원이 만든 AI 첨삭</span>
+    <h1>30곳 넣어도 서류에서 떨어지신다면,<br><em>이력서·자소서 완성본</em>을 10분 만에 받아보세요</h1>
+    <p class="sub">
+      비전공자·전직 준비생을 위해 공고에 맞춰 다시 쓴 이력서·자소서 완성본과
+      면접장에서 떨지 않고 답변하는 노하우까지, 건당 결제로 빠르게 받는 AI 첨삭 서비스입니다.
+    </p>
+    <div class="hero-cta">
+      <a href="#pricing" class="btn-primary">가격 확인하고 신청하기</a>
+      <a href="#apply" class="btn-ghost">신청폼으로 바로가기</a>
+    </div>
+  </div>
+</section>
+<div class="color-strip">
+  <span style="background:#e8664f"></span>
+  <span style="background:#c9a24b"></span>
+  <span style="background:#2ea59a"></span>
+  <span style="background:#1b2a4a"></span>
+  <span style="background:#8e6bb0"></span>
+  <span style="background:#4f7cac"></span>
+</div>
+
+<section class="who" id="who">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">FOR YOU</span>
+      <h2>이런 상황이라면, 지금이 딱입니다</h2>
+      <p>서류부터 면접까지 막힌 지점을 정확히 짚어드립니다.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card">
+        <span class="num">1</span>
+        <h3>30곳 넣어도 서류 광탈</h3>
+        <p>같은 자소서를 여러 곳에 반복 지원하다 공고와 맞지 않아 계속 떨어지는 분</p>
+      </div>
+      <div class="who-card">
+        <span class="num">2</span>
+        <h3>비전공 · 전직 준비생</h3>
+        <p>경력이나 전공을 새 직무 언어로 어떻게 풀어야 할지 막막한 분</p>
+      </div>
+      <div class="who-card">
+        <span class="num">3</span>
+        <h3>면접만 가면 긴장</h3>
+        <p>서류는 통과해도 면접장에서 떨려서 준비한 말을 제대로 못하는 분</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">PRICING</span>
+      <h2>가격 안내</h2>
+      <p>건당 결제로 부담 없이, 지금 바로 시작하세요.</p>
+    </div>
+
+    <div class="price-glow">
+      <span class="price-ribbon">🔥 취준생 · 전직 준비생 인기 패키지</span>
+      <div class="price-card">
+        <div class="price-head">
+          <span class="badge">건당 결제 · 이력서·자소서·면접 올인원</span>
+          <h3>이력서·자소서 AI 첨삭 + 면접 코칭 패키지</h3>
+          <p class="value-prop">
+            직무로 취업·전직하려는 비전공자가, 30곳을 넣고도 서류에서 계속 떨어지는 상황에서
+            공고에 맞춘 이력서·자소서 완성본을 <b>10분 만에</b> 받고, 면접장에서 떨지 않고
+            답변하는 노하우까지 얻게 됩니다.
+          </p>
+          <div class="price-amount">30,000<span>원 / 건</span></div>
+        </div>
+        <div class="price-body">
+          <div class="chip-row">
+            <span class="chip">⏱ 10분 완성</span>
+            <span class="chip">✅ 면접위원 직접 검수</span>
+            <span class="chip">🎯 비전공자 특화</span>
+          </div>
+          <p class="lead">아래 4가지 구성이 모두 포함된 첨삭 패키지입니다.</p>
+          <ul class="include-list">
+            <li><span class="check">✓</span>공고 맞춤 이력서 · 자소서 완전 재작성본 (10분 내 초안 발송)</li>
+            <li><span class="check">✓</span>AI + 현직 면접위원 첨삭 리포트 (탈락 사유 · 개선 포인트 분석)</li>
+            <li><span class="check">✓</span>비전공자 경력 전환 스토리텔링 가이드 (직무 연결 포인트 제안)</li>
+            <li><span class="check">✓</span>실전 면접 예상질문 답변 스크립트 + 떨지 않는 답변 노하우</li>
+          </ul>
+          <a href="#payment" class="btn-pay">지금 결제하고 첨삭 신청하기</a>
+          <p class="price-note">결제 링크는 추후 연결됩니다. 신청서 제출 후 개별 안내드립니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="apply" id="apply">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">APPLY</span>
+      <h2>신청서 작성하기</h2>
+      <p>아래 정보를 남겨주시면 순차적으로 안내드립니다.</p>
+    </div>
+    <div class="apply-box">
+      <form>
+        <div class="form-row">
+          <label for="name">이름</label>
+          <input type="text" id="name" placeholder="홍길동" required>
+        </div>
+        <div class="form-row">
+          <label for="phone">연락처</label>
+          <input type="tel" id="phone" placeholder="010-0000-0000" required>
+        </div>
+        <div class="form-row">
+          <label for="email">이메일</label>
+          <input type="email" id="email" placeholder="example@email.com" required>
+        </div>
+        <div class="form-row">
+          <label for="target">지원 분야 / 직무</label>
+          <input type="text" id="target" placeholder="예: 항공서비스, 마케팅 등">
+        </div>
+        <div class="form-row">
+          <label for="service">희망 첨삭 항목</label>
+          <select id="service">
+            <option>이력서만</option>
+            <option>자소서만</option>
+            <option>이력서 + 자소서</option>
+            <option>이력서 + 자소서 + 면접 코칭</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="message">희망 첨삭 내용 (선택)</label>
+          <textarea id="message" rows="3" placeholder="지원 공고, 고민되는 부분을 남겨주세요."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">신청서 제출하기</button>
+      </form>
+      <p class="apply-note">제출하신 정보는 첨삭 안내 목적으로만 사용됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo">합격<span style="color:#f4c98a">AI</span></div>
+    <p style="margin-bottom:4px;">휴엔엠 PIB 컨설팅</p>
+    <p>&copy; 2026 휴엔엠 PIB 컨설팅. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -3,386 +3,440 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 자소서 첨삭 리포트 | IT 취준생을 위한 10분 직무 맞춤 첨삭</title>
+<title>AI 자소서 첨삭 리포트 | 취준생을 위한 직무 맞춤 첨삭</title>
 <style>
   :root {
-    --navy: #1b2a4a;
-    --gold: #c9a24b;
-    --coral: #e8664f;
-    --teal: #2ea59a;
-    --cream: #faf7f0;
-    --ink: #24242a;
-    --muted: #6b6f76;
+    --yellow: #FFDE59;
+    --yellow-soft: #FFF8E1;
+    --accent: #6C3CE9;
+    --accent-dark: #5527C4;
+    --ink: #241F14;
+    --muted: #6b6252;
+    --card: #ffffff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
     color: var(--ink);
-    background: var(--cream);
-    line-height: 1.6;
+    background: var(--yellow-soft);
+    line-height: 1.65;
+    word-break: keep-all;
   }
   a { text-decoration: none; color: inherit; }
-  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 0 20px; }
 
-  header {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(250,247,240,0.92);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(27,42,74,0.08);
+  section { padding: 52px 0; }
+  .section-tag {
+    display: inline-block; font-size: 12px; font-weight: 800; color: var(--accent-dark);
+    letter-spacing: 0.5px; margin-bottom: 10px;
   }
-  header .wrap {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 14px; padding-bottom: 14px;
+  .section-title {
+    font-size: 21px; font-weight: 800; color: var(--ink); letter-spacing: -0.4px;
+    margin-bottom: 8px;
   }
-  .logo { font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: -0.5px; }
-  .logo span { color: var(--coral); }
-  .btn-nav {
-    background: var(--navy); color: #fff !important; padding: 9px 18px;
-    border-radius: 999px; font-size: 13.5px; font-weight: 700;
-  }
+  .section-desc { font-size: 13.5px; color: var(--muted); margin-bottom: 26px; }
 
-  /* Hero */
-  .hero {
-    padding: 80px 0 64px;
-    background: linear-gradient(135deg, #1b2a4a 0%, #2c3f68 55%, #3a4f7d 100%);
-    color: #fff;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
+  .btn-big {
+    display: block; width: 100%; text-align: center;
+    background: var(--accent); color: #fff;
+    font-size: 17px; font-weight: 800;
+    padding: 18px; border: none; border-radius: 999px; cursor: pointer;
+    box-shadow: 0 6px 14px rgba(108,60,233,0.20);
+    transition: transform .12s ease, box-shadow .12s ease;
   }
-  .hero::before {
-    content: "";
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 20% 20%, rgba(232,102,79,0.35), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(46,165,154,0.35), transparent 45%),
-                radial-gradient(circle at 50% 10%, rgba(201,162,75,0.3), transparent 35%);
-  }
-  .hero .wrap { position: relative; }
-  .eyebrow {
-    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px;
-    background: rgba(255,255,255,0.14); padding: 6px 16px; border-radius: 999px;
-    margin-bottom: 22px;
-  }
+  .btn-big:active { transform: translateY(1px); box-shadow: 0 3px 8px rgba(108,60,233,0.18); }
+
+  /* 1. Hero */
+  .hero { background: var(--yellow); padding: 40px 0 46px; }
+  .hero .brand { font-size: 13.5px; font-weight: 800; color: var(--ink); opacity: 0.75; margin-bottom: 22px; }
+  .hero .brand span { color: var(--accent-dark); }
   .hero h1 {
-    font-size: clamp(26px, 4.6vw, 42px);
-    font-weight: 800; letter-spacing: -1px; margin-bottom: 16px;
+    font-size: 27px; font-weight: 800; letter-spacing: -0.6px; color: var(--ink);
+    margin-bottom: 14px;
   }
-  .hero h1 em { font-style: normal; color: #f4c98a; }
-  .hero p.sub {
-    font-size: clamp(14.5px, 2vw, 17px);
-    color: rgba(255,255,255,0.85);
-    max-width: 600px; margin: 0 auto 14px;
+  .hero h1 em { font-style: normal; color: var(--accent-dark); }
+  .hero p.sub { font-size: 14.5px; color: #4a4330; margin-bottom: 26px; }
+  .hero .price-tag {
+    display: inline-flex; align-items: baseline; gap: 6px;
+    background: rgba(255,255,255,0.55); padding: 8px 16px; border-radius: 999px;
+    font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 18px;
   }
-  .hero p.author {
-    font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 30px;
+  .hero .price-tag b { font-size: 16px; color: var(--accent-dark); }
+  #toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: #fff; font-size: 13.5px; font-weight: 600;
+    padding: 13px 20px; border-radius: 999px; opacity: 0; pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease; z-index: 999; white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.25);
   }
-  .hero-cta {
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-  }
-  .btn-pay {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--coral), #f08a5c);
-    color: #fff; padding: 18px 38px;
-    border-radius: 999px; font-weight: 800; font-size: 17px;
-    border: none; cursor: pointer;
-    box-shadow: 0 14px 28px rgba(232,102,79,0.4);
-    transition: transform .15s ease;
-    animation: pulseGlow 2.4s ease-in-out infinite;
-  }
-  .btn-pay:hover { transform: translateY(-2px); }
-  @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 14px 28px rgba(232,102,79,0.35); }
-    50% { box-shadow: 0 18px 40px rgba(232,102,79,0.55); }
-  }
-  .price-line { font-size: 13.5px; color: rgba(255,255,255,0.8); }
-  .price-line b { color: #f4c98a; font-size: 15px; }
-  .btn-ghost-link {
-    margin-top: 4px; font-size: 13.5px; color: rgba(255,255,255,0.75);
-    text-decoration: underline; text-underline-offset: 3px;
-  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .color-strip { display: flex; height: 8px; }
-  .color-strip span { flex: 1; }
-
-  /* Section shared */
-  section { padding: 72px 0; }
-  .section-head { text-align: center; margin-bottom: 40px; }
-  .section-head .tag {
-    color: var(--coral); font-weight: 700; font-size: 12.5px; letter-spacing: 1px;
-  }
-  .section-head h2 {
-    font-size: clamp(22px, 3.6vw, 30px); font-weight: 800; color: var(--navy);
-    margin-top: 10px; letter-spacing: -0.5px;
-  }
-  .section-head p { color: var(--muted); margin-top: 10px; font-size: 14.5px; }
-
-  /* Who it's for */
-  .who { background: #fff; }
-  .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  /* 2. 이런 분께 */
   .who-card {
-    background: var(--cream); border-radius: 18px; padding: 24px 20px;
-    border: 1px solid rgba(27,42,74,0.08);
+    background: var(--card); border-radius: 16px; padding: 20px;
+    margin-bottom: 12px; border: 1px solid rgba(36,31,20,0.06);
   }
   .who-card .num {
-    display: inline-flex; width: 30px; height: 30px; border-radius: 10px;
-    align-items: center; justify-content: center; font-weight: 800; font-size: 13px;
-    color: #fff; background: var(--coral); margin-bottom: 12px;
+    display: inline-flex; width: 26px; height: 26px; border-radius: 8px;
+    align-items: center; justify-content: center; font-weight: 800; font-size: 12.5px;
+    color: #fff; background: var(--accent); margin-bottom: 10px;
   }
-  .who-card:nth-child(2) .num { background: var(--teal); }
-  .who-card:nth-child(3) .num { background: var(--navy); }
-  .who-card h3 { font-size: 15.5px; color: var(--navy); margin-bottom: 8px; }
-  .who-card p { font-size: 13.2px; color: var(--muted); }
+  .who-card h3 { font-size: 15px; color: var(--ink); margin-bottom: 6px; }
+  .who-card p { font-size: 13px; color: var(--muted); }
 
-  /* Free trial */
-  .free { background: linear-gradient(180deg, var(--cream) 0%, #fff2e8 100%); }
+  /* 3. 무료 체험 */
   .free-box {
-    max-width: 680px; margin: 0 auto;
-    background: #fff; border-radius: 24px; padding: 34px;
-    border: 1px solid rgba(27,42,74,0.08);
-    box-shadow: 0 20px 40px rgba(27,42,74,0.08);
+    background: var(--card); border-radius: 18px; padding: 22px;
+    border: 1px solid rgba(36,31,20,0.06);
   }
-  .free-box label {
-    display: block; font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 10px;
-  }
+  .free-box label { display: block; font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
   #resume-input {
-    width: 100%; min-height: 160px; padding: 16px; border-radius: 14px;
-    border: 1.5px solid rgba(27,42,74,0.15); font-size: 14px;
-    font-family: inherit; resize: vertical; background: var(--cream);
+    width: 100%; min-height: 140px; padding: 14px; border-radius: 12px;
+    border: 1.5px solid rgba(36,31,20,0.14); font-size: 14px;
+    font-family: inherit; resize: vertical; background: var(--yellow-soft);
   }
-  #resume-input:focus { outline: none; border-color: var(--teal); background: #fff; }
-  .char-count { text-align: right; font-size: 12px; color: var(--muted); margin-top: 6px; margin-bottom: 18px; }
-  #free-btn {
-    width: 100%; background: var(--navy); color: #fff; font-weight: 700;
-    font-size: 15.5px; padding: 16px; border: none; border-radius: 14px; cursor: pointer;
-    transition: background .15s ease;
-  }
-  #free-btn:hover { background: #223763; }
-  #free-btn:disabled { background: #a6adba; cursor: not-allowed; }
-
-  #free-result { margin-top: 26px; }
-  .result-card {
-    background: var(--cream); border-radius: 18px; padding: 24px;
-    border: 1px solid rgba(27,42,74,0.08); animation: fadeIn .35s ease;
-  }
-  @keyframes fadeIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform: translateY(0);} }
-  .result-card h4 { color: var(--navy); font-size: 15.5px; margin-bottom: 14px; }
-  .stat-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
-  .stat-chip {
-    font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 999px;
-    background: rgba(46,165,154,0.12); color: var(--teal);
-  }
-  .stat-chip.warn { background: rgba(232,102,79,0.12); color: var(--coral); }
-  .issue-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-  .issue-list li {
-    font-size: 13.5px; color: var(--ink); background: #fff; border-radius: 10px;
-    padding: 12px 14px; border-left: 3px solid var(--coral);
-  }
-  .issue-list li b { color: var(--coral); }
-  .result-empty {
-    font-size: 13.5px; color: var(--ink); background: #fff; border-radius: 10px;
-    padding: 12px 14px; border-left: 3px solid var(--muted);
-  }
-  .teaser {
-    background: linear-gradient(135deg, #1b2a4a, #2c3f68 60%, #3a4f7d);
-    border-radius: 14px; padding: 20px; text-align: center; color: #fff;
-  }
-  .teaser p { font-size: 13.5px; color: rgba(255,255,255,0.85); margin-bottom: 14px; }
-  .teaser p b { color: #f4c98a; }
-  .teaser a {
-    display: inline-block; background: var(--coral); color: #fff; font-weight: 700;
-    font-size: 14.5px; padding: 13px 26px; border-radius: 999px;
+  #resume-input:focus { outline: none; border-color: var(--accent); background: #fff; }
+  .char-count { text-align: right; font-size: 11.5px; color: var(--muted); margin: 6px 0 16px; }
+  #free-result { margin-top: 16px; }
+  .result-msg {
+    font-size: 13.5px; color: var(--ink); background: var(--yellow-soft);
+    border-radius: 12px; padding: 14px; border-left: 3px solid var(--accent);
   }
 
-  footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 36px 0; text-align: center; }
-  footer .logo { color: #fff; margin-bottom: 8px; }
-  footer p { font-size: 12.5px; }
+  /* 4. 결과 샘플 */
+  .sample-card {
+    background: var(--card); border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(36,31,20,0.06);
+  }
+  .sample-head {
+    background: var(--ink); color: #fff; padding: 14px 18px; font-size: 12.5px; font-weight: 700;
+  }
+  .sample-body { padding: 18px; }
+  .sample-row { margin-bottom: 14px; }
+  .sample-label {
+    display: inline-block; font-size: 11px; font-weight: 800; padding: 3px 9px;
+    border-radius: 6px; margin-bottom: 6px;
+  }
+  .sample-label.before { background: rgba(36,31,20,0.08); color: var(--muted); }
+  .sample-label.after { background: rgba(108,60,233,0.12); color: var(--accent-dark); }
+  .sample-text { font-size: 13px; color: var(--ink); background: var(--yellow-soft); padding: 10px 12px; border-radius: 10px; }
+  .sample-text.blur { filter: blur(3px); user-select: none; }
+  .keyword-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .keyword-chip {
+    font-size: 11.5px; font-weight: 700; padding: 5px 10px; border-radius: 999px;
+    background: rgba(108,60,233,0.10); color: var(--accent-dark);
+  }
+  .sample-lock {
+    text-align: center; padding: 16px 18px; background: var(--yellow-soft);
+    font-size: 12.5px; color: var(--muted);
+  }
+  .sample-lock a { color: var(--accent-dark); font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
 
-  @media (max-width: 720px) {
-    .who-grid { grid-template-columns: 1fr; }
+  /* 5. 가격 */
+  .price-card {
+    background: var(--ink); color: #fff; border-radius: 20px; padding: 28px 22px;
+    text-align: center;
   }
-  @media (max-width: 480px) {
-    .free-box { padding: 24px 18px; }
-    .btn-pay { padding: 16px 28px; font-size: 15.5px; }
+  .price-card .badge {
+    display: inline-block; background: rgba(255,255,255,0.12); font-size: 11.5px; font-weight: 700;
+    padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
   }
+  .price-card .amount { font-size: 36px; font-weight: 800; color: var(--yellow); }
+  .price-card .amount span { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); margin-left: 3px; }
+  .price-list { list-style: none; text-align: left; margin: 20px 0 22px; display: flex; flex-direction: column; gap: 10px; }
+  .price-list li { display: flex; gap: 10px; font-size: 13.5px; color: rgba(255,255,255,0.92); }
+  .price-list .check {
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--yellow); color: var(--ink); font-size: 11px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .price-note { font-size: 11.5px; color: rgba(255,255,255,0.55); margin-top: 12px; }
+
+  /* 6. 만든 사람 */
+  .maker-card {
+    background: var(--card); border-radius: 18px; padding: 22px;
+    border: 1px solid rgba(36,31,20,0.06);
+  }
+  .maker-card .avatar {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800; color: var(--ink); margin-bottom: 14px;
+  }
+  .maker-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .maker-card li { font-size: 13.5px; color: var(--ink); padding-left: 16px; position: relative; }
+  .maker-card li::before {
+    content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+  }
+
+  /* 7. FAQ */
+  .faq-item {
+    background: var(--card); border-radius: 14px; margin-bottom: 10px;
+    border: 1px solid rgba(36,31,20,0.06); overflow: hidden;
+  }
+  .faq-q {
+    width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 16px 18px; font-size: 13.5px; font-weight: 700; color: var(--ink);
+  }
+  .faq-q .arrow { flex-shrink: 0; transition: transform .2s ease; color: var(--accent); font-size: 14px; }
+  .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height .25s ease;
+    font-size: 13px; color: var(--muted); padding: 0 18px;
+  }
+  .faq-item.open .faq-a { padding: 0 18px 16px; }
+
+  /* 8. Footer */
+  footer { background: var(--ink); color: rgba(255,255,255,0.55); padding: 32px 0 40px; }
+  footer .f-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 10px; }
+  footer .f-row { font-size: 11.5px; margin-bottom: 4px; }
+  footer .f-blank { display: inline-block; min-width: 90px; border-bottom: 1px solid rgba(255,255,255,0.25); }
+  footer .f-copy { font-size: 11px; margin-top: 16px; color: rgba(255,255,255,0.35); }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <div class="logo">자소서<span>AI</span> 첨삭</div>
-    <a href="#pay" class="btn-nav">29,000원 신청</a>
-  </div>
-</header>
-
 <!-- 1. 히어로 -->
 <section class="hero">
   <div class="wrap">
-    <span class="eyebrow">IT 취준생을 위한 AI 자소서 첨삭 리포트</span>
-    <h1>자소서만 붙여넣으면,<br><em>10분 안에 직무 맞춤 첨삭본</em>이 나옵니다</h1>
-    <p class="sub">
-      전 문항 첨삭, 고칠 문장 10개 이상, 직무 키워드 매칭표, 예상 면접질문 10개까지 —
-      지금 쓴 자소서 그대로 붙여넣기만 하면 됩니다.
-    </p>
-    <p class="author">8년차 개발자 · SAP ERP 강사 · IT 취업 도서 저자가 직접 만든 첨삭 리포트</p>
-    <div class="hero-cta">
-      <button id="pay" class="btn-pay" type="button">29,000원으로 첨삭 리포트 받기</button>
-      <span class="price-line">단일가 <b>29,000원</b> · 결제 후 10분 이내 리포트 발송</span>
-      <a href="#free" class="btn-ghost-link">결제 전에 무료로 먼저 체험해보기 ↓</a>
-    </div>
+    <div class="brand">자소서<span>AI</span> 첨삭 리포트</div>
+    <h1>내 자소서, <em>직무에 맞게</em><br>제대로 첨삭받고 제출하세요</h1>
+    <p class="sub">자소서를 붙여넣으면 전 문항 첨삭과 고칠 문장, 직무 키워드 매칭표, 예상 면접질문까지 한 번에 받아보는 리포트입니다.</p>
+    <div class="price-tag">단일가 <b>29,000원</b></div>
+    <button id="pay" class="btn-big" type="button">첨삭 리포트 신청하기</button>
   </div>
 </section>
-<div class="color-strip">
-  <span style="background:#e8664f"></span>
-  <span style="background:#c9a24b"></span>
-  <span style="background:#2ea59a"></span>
-  <span style="background:#1b2a4a"></span>
-  <span style="background:#8e6bb0"></span>
-  <span style="background:#4f7cac"></span>
-</div>
 
 <!-- 2. 이런 분께 -->
-<section class="who" id="who">
+<section id="who">
   <div class="wrap">
-    <div class="section-head">
-      <span class="tag">FOR YOU</span>
-      <h2>이런 고민이라면, 지금이 딱입니다</h2>
-      <p>IT 취업을 준비하며 자소서 앞에서 막힌 순간을 정확히 짚어드립니다.</p>
+    <span class="section-tag">FOR YOU</span>
+    <h2 class="section-title">이런 고민이라면, 지금이 딱입니다</h2>
+    <p class="section-desc">자소서 앞에서 막힌 순간을 정확히 짚어드립니다.</p>
+
+    <div class="who-card">
+      <span class="num">1</span>
+      <h3>몇 번을 고쳐도 광탈만 반복</h3>
+      <p>어디가 문제인지 모른 채 같은 자소서를 이 회사 저 회사에 그대로 지원하고 계신 분</p>
     </div>
-    <div class="who-grid">
-      <div class="who-card">
-        <span class="num">1</span>
-        <h3>몇 번을 고쳐도 광탈만 반복</h3>
-        <p>어디가 문제인지 모른 채 같은 자소서를 이 회사 저 회사에 복붙 지원하고 계신 분</p>
-      </div>
-      <div class="who-card">
-        <span class="num">2</span>
-        <h3>직무 키워드를 어떻게 녹여야 할지 막막</h3>
-        <p>공고가 요구하는 역량과 내 경험을 어떤 단어·표현으로 연결해야 할지 감이 안 잡히는 분</p>
-      </div>
-      <div class="who-card">
-        <span class="num">3</span>
-        <h3>면접까지 이어지지 않는 자소서</h3>
-        <p>서류는 냈지만 예상 면접질문에 대한 준비가 안 돼 있어 면접까지 못 가는 분</p>
-      </div>
+    <div class="who-card">
+      <span class="num">2</span>
+      <h3>직무 키워드를 어떻게 녹여야 할지 막막</h3>
+      <p>공고가 요구하는 역량과 내 경험을 어떤 표현으로 연결해야 할지 감이 안 잡히는 분</p>
+    </div>
+    <div class="who-card">
+      <span class="num">3</span>
+      <h3>면접까지 이어지지 않는 자소서</h3>
+      <p>서류는 냈지만 예상 면접질문에 대한 준비가 안 되어 있어 다음 단계가 막막한 분</p>
     </div>
   </div>
 </section>
 
 <!-- 3. 무료 체험 -->
-<section class="free" id="free">
+<section id="free" style="background: var(--yellow-soft);">
   <div class="wrap">
-    <div class="section-head">
-      <span class="tag">FREE TRIAL</span>
-      <h2>결제 전, 무료로 먼저 진단받아보세요</h2>
-      <p>자소서 문항과 답변을 붙여넣으면 바로 간단 진단 결과를 보여드립니다.</p>
-    </div>
+    <span class="section-tag">FREE TRIAL</span>
+    <h2 class="section-title">결제 전, 무료로 먼저 체험해보세요</h2>
+    <p class="section-desc">자소서 문항과 답변을 붙여넣고 간단 진단을 받아보세요.</p>
+
     <div class="free-box">
       <label for="resume-input">자소서 문항 + 답변 붙여넣기</label>
-      <textarea id="resume-input" placeholder="예) Q. 지원 동기를 서술하시오.&#10;A. 저는 어릴 때부터 IT에 관심이 많았고 성실하게 노력하여..."></textarea>
+      <textarea id="resume-input" placeholder="예) Q. 지원 동기를 서술하시오.&#10;A. 저는 어릴 때부터 이 분야에 관심이 많아..."></textarea>
       <div class="char-count"><span id="char-count-num">0</span>자 입력됨</div>
-      <button id="free-btn" type="button">무료로 진단받기</button>
+      <button id="free-btn" class="btn-big" type="button">무료로 진단받기</button>
       <div id="free-result"></div>
     </div>
   </div>
 </section>
 
+<!-- 4. 결과 샘플 -->
+<section id="sample">
+  <div class="wrap">
+    <span class="section-tag">SAMPLE</span>
+    <h2 class="section-title">이런 리포트를 받아보게 됩니다</h2>
+    <p class="section-desc">실제 유료 리포트의 첨삭 예시 미리보기입니다.</p>
+
+    <div class="sample-card">
+      <div class="sample-head">Q. 본인의 강점을 서술하시오.</div>
+      <div class="sample-body">
+        <div class="sample-row">
+          <span class="sample-label before">BEFORE</span>
+          <div class="sample-text">저는 책임감이 강하고 성실하게 맡은 일을 끝까지 해내는 사람입니다.</div>
+        </div>
+        <div class="sample-row">
+          <span class="sample-label after">AFTER</span>
+          <div class="sample-text blur">▓▓팀 ▓▓ 프로젝트에서 ▓▓▓▓ 문제를 ▓▓▓▓ 방식으로 해결해 ▓▓% 개선한 경험이 있습니다.</div>
+        </div>
+        <div class="sample-row">
+          <span class="sample-label after">직무 키워드 매칭</span>
+          <div class="keyword-row">
+            <span class="keyword-chip">문제해결력</span>
+            <span class="keyword-chip">협업 경험</span>
+            <span class="keyword-chip">▓▓▓▓</span>
+          </div>
+        </div>
+      </div>
+      <div class="sample-lock">전체 첨삭본과 문항별 상세 리포트는 <a href="#pay">결제 후 전체 확인</a>할 수 있어요.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 가격 -->
+<section id="pricing" style="background: var(--yellow-soft);">
+  <div class="wrap">
+    <span class="section-tag">PRICING</span>
+    <h2 class="section-title">가격 안내</h2>
+    <p class="section-desc">건당 결제, 부담 없는 단일가입니다.</p>
+
+    <div class="price-card">
+      <span class="badge">AI 자소서 첨삭 리포트</span>
+      <div class="amount">29,000<span>원 / 건</span></div>
+      <ul class="price-list">
+        <li><span class="check">✓</span>전 문항 첨삭</li>
+        <li><span class="check">✓</span>고칠 문장 최소 10개</li>
+        <li><span class="check">✓</span>직무 키워드 매칭표</li>
+        <li><span class="check">✓</span>예상 면접질문 10개</li>
+      </ul>
+      <button id="pay" class="btn-big" type="button">29,000원 결제하고 리포트 받기</button>
+      <p class="price-note">결제 및 안내는 순차적으로 진행됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. 만든 사람 -->
+<section id="maker">
+  <div class="wrap">
+    <span class="section-tag">MAKER</span>
+    <h2 class="section-title">이 리포트를 만든 사람</h2>
+
+    <div class="maker-card">
+      <div class="avatar">👤</div>
+      <ul>
+        <li>10년차 기업·학교 특강 강사, 전문 취업 면접위원 활동</li>
+        <li>퍼스널 이미지 브랜딩 컨설턴트</li>
+        <li>『셀프리더십』 공저, 『컬러 리더십 16컬러 코드』 저자</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 7. FAQ -->
+<section id="faq" style="background: var(--yellow-soft);">
+  <div class="wrap">
+    <span class="section-tag">FAQ</span>
+    <h2 class="section-title">자주 묻는 질문</h2>
+
+    <div class="faq-item">
+      <button class="faq-q" type="button">
+        <span>어떤 직무든 첨삭이 가능한가요?</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="faq-a">네, 자소서 답변과 지원 직무를 함께 알려주시면 직무에 맞춰 첨삭해 드립니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" type="button">
+        <span>무료 체험과 유료 리포트는 뭐가 다른가요?</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="faq-a">무료 체험은 간단 진단만 제공합니다. 유료 리포트는 전 문항 첨삭, 고칠 문장 10개 이상, 직무 키워드 매칭표, 예상 면접질문 10개를 모두 포함합니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" type="button">
+        <span>리포트는 언제 받아볼 수 있나요?</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="faq-a">결제 확인 후 순차적으로 안내드립니다. 자세한 일정은 신청 후 개별 안내됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" type="button">
+        <span>결제 방법은 무엇인가요?</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="faq-a">결제 기능은 현재 준비 중입니다. 오픈 시 카드·간편결제를 지원할 예정입니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" type="button">
+        <span>환불이 가능한가요?</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="faq-a">리포트 발송 전에는 전액 환불이 가능합니다. 발송 후에는 콘텐츠 특성상 환불이 제한될 수 있습니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. 푸터 -->
 <footer>
   <div class="wrap">
-    <div class="logo">자소서<span style="color:#f4c98a">AI</span> 첨삭</div>
-    <p style="margin-bottom:4px;">AI 자소서 첨삭 리포트 · 8년차 개발자 · SAP ERP 강사 · IT 취업 도서 저자</p>
-    <p>&copy; 2026 AI 자소서 첨삭 리포트. All rights reserved.</p>
+    <div class="f-title">사업자 정보</div>
+    <div class="f-row">상호명 <span class="f-blank"></span></div>
+    <div class="f-row">대표자 <span class="f-blank"></span></div>
+    <div class="f-row">사업자등록번호 <span class="f-blank"></span></div>
+    <div class="f-row">통신판매업신고번호 <span class="f-blank"></span></div>
+    <div class="f-row">주소 <span class="f-blank"></span></div>
+    <div class="f-row">이메일 <span class="f-blank"></span></div>
+    <div class="f-row">전화번호 <span class="f-blank"></span></div>
+    <p class="f-copy">&copy; 2026 AI 자소서 첨삭 리포트. All rights reserved.</p>
   </div>
 </footer>
 
+<div id="toast"></div>
+
 <script>
+  // API 연동 전 설정값 자리. 실제 키/URL은 서비스 오픈 시 채워 넣습니다.
+  const CONFIG = { API_URL: "", TIMEOUT_MS: 30000, TOSS_CLIENT_KEY: "" };
+
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
+  function showToast(message) {
+    toastEl.textContent = message;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.remove('show');
+    }, 2200);
+  }
+
+  // id="pay" 버튼이 히어로/가격 두 섹션에 있어 querySelectorAll로 모두 연결합니다.
+  document.querySelectorAll('[id="pay"]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showToast('🚧 결제 기능은 준비 중입니다.');
+    });
+  });
+
   var textarea = document.getElementById('resume-input');
   var charCountNum = document.getElementById('char-count-num');
   var freeBtn = document.getElementById('free-btn');
   var freeResult = document.getElementById('free-result');
-  var payBtn = document.getElementById('pay');
 
   textarea.addEventListener('input', function () {
     charCountNum.textContent = textarea.value.length;
   });
 
-  var GENERIC_PHRASES = [
-    '최선을 다해', '열심히', '성실히', '책임감을 가지고', '노력하겠습니다',
-    '열정을 가지고', '도전정신', '꼼꼼하게', '적극적으로', '긍정적인 마인드'
-  ];
-
-  function splitSentences(text) {
-    return text
-      .split(/(?<=[.!?\n])\s*/)
-      .map(function (s) { return s.trim(); })
-      .filter(function (s) { return s.length > 0; });
-  }
-
-  function renderResult(text) {
-    var sentences = splitSentences(text);
-    var charLen = text.length;
-    var foundIssues = [];
-
-    sentences.forEach(function (sentence) {
-      GENERIC_PHRASES.forEach(function (phrase) {
-        if (sentence.indexOf(phrase) !== -1 && foundIssues.length < 3) {
-          foundIssues.push({ sentence: sentence, phrase: phrase });
-        }
-      });
-    });
-
-    var longSentences = sentences.filter(function (s) { return s.length > 90; });
-
-    var issuesHtml = '';
-    if (foundIssues.length > 0) {
-      issuesHtml += foundIssues.map(function (issue) {
-        var shown = issue.sentence.length > 70 ? issue.sentence.slice(0, 70) + '…' : issue.sentence;
-        return '<li>추상적 표현 발견 — <b>"' + issue.phrase + '"</b><br>"' + shown + '"</li>';
-      }).join('');
-    }
-    if (longSentences.length > 0 && foundIssues.length < 3) {
-      issuesHtml += '<li>문장이 90자를 넘는 곳이 <b>' + longSentences.length + '군데</b> 있습니다. 두 문장으로 나누면 가독성이 좋아집니다.</li>';
-    }
-    if (issuesHtml === '') {
-      issuesHtml = '<div class="result-empty">눈에 띄는 상투적 표현은 없습니다. 다만 직무 키워드 매칭과 문장별 구체성은 유료 리포트에서 더 깊게 확인해보세요.</div>';
-    } else {
-      issuesHtml = '<ul class="issue-list">' + issuesHtml + '</ul>';
-    }
-
-    freeResult.innerHTML =
-      '<div class="result-card">' +
-        '<h4>무료 간단 진단 결과</h4>' +
-        '<div class="stat-row">' +
-          '<span class="stat-chip">총 ' + charLen + '자</span>' +
-          '<span class="stat-chip">문장 ' + sentences.length + '개</span>' +
-          '<span class="stat-chip warn">상투적 표현 ' + foundIssues.length + '개 발견</span>' +
-        '</div>' +
-        issuesHtml +
-        '<div class="teaser">' +
-          '<p>무료 진단에서는 <b>일부 문장</b>만 보여드립니다.<br>유료 리포트는 <b>전 문항 첨삭 + 고칠 문장 10개 이상 + 직무 키워드 매칭표 + 예상 면접질문 10개</b>를 10분 안에 모두 드립니다.</p>' +
-          '<a href="#pay">29,000원으로 전체 리포트 받기</a>' +
-        '</div>' +
-      '</div>';
-  }
-
   freeBtn.addEventListener('click', function () {
-    var text = textarea.value.trim();
-    if (text.length < 10) {
-      freeResult.innerHTML = '<div class="result-empty">자소서 문항과 답변을 10자 이상 입력해주세요.</div>';
-      return;
-    }
-    freeBtn.disabled = true;
-    freeBtn.textContent = '진단 중...';
-    setTimeout(function () {
-      renderResult(text);
-      freeBtn.disabled = false;
-      freeBtn.textContent = '무료로 진단받기';
-      freeResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 700);
+    freeResult.innerHTML = '<div class="result-msg">🚧 무료 진단 기능은 준비 중입니다. 서비스 오픈 후 이용하실 수 있어요!</div>';
   });
 
-  payBtn.addEventListener('click', function () {
-    alert('결제 페이지는 추후 연동됩니다. 신청 후 개별 안내드립니다.');
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq-item');
+      var answer = item.querySelector('.faq-a');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function (openItem) {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if (isOpen) {
+        item.classList.remove('open');
+        answer.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 20 + 'px';
+      }
+    });
   });
 </script>
 

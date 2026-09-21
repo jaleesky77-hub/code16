@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 자소서 첨삭 리포트 | IT 취준생을 위한 10분 직무 맞춤 첨삭</title>
+<style>
+  :root {
+    --navy: #1b2a4a;
+    --gold: #c9a24b;
+    --coral: #e8664f;
+    --teal: #2ea59a;
+    --cream: #faf7f0;
+    --ink: #24242a;
+    --muted: #6b6f76;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.6;
+  }
+  a { text-decoration: none; color: inherit; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,247,240,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(27,42,74,0.08);
+  }
+  header .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 14px; padding-bottom: 14px;
+  }
+  .logo { font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: -0.5px; }
+  .logo span { color: var(--coral); }
+  .btn-nav {
+    background: var(--navy); color: #fff !important; padding: 9px 18px;
+    border-radius: 999px; font-size: 13.5px; font-weight: 700;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 0 64px;
+    background: linear-gradient(135deg, #1b2a4a 0%, #2c3f68 55%, #3a4f7d 100%);
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(232,102,79,0.35), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(46,165,154,0.35), transparent 45%),
+                radial-gradient(circle at 50% 10%, rgba(201,162,75,0.3), transparent 35%);
+  }
+  .hero .wrap { position: relative; }
+  .eyebrow {
+    display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: 0.5px;
+    background: rgba(255,255,255,0.14); padding: 6px 16px; border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4.6vw, 42px);
+    font-weight: 800; letter-spacing: -1px; margin-bottom: 16px;
+  }
+  .hero h1 em { font-style: normal; color: #f4c98a; }
+  .hero p.sub {
+    font-size: clamp(14.5px, 2vw, 17px);
+    color: rgba(255,255,255,0.85);
+    max-width: 600px; margin: 0 auto 14px;
+  }
+  .hero p.author {
+    font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 30px;
+  }
+  .hero-cta {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
+  .btn-pay {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--coral), #f08a5c);
+    color: #fff; padding: 18px 38px;
+    border-radius: 999px; font-weight: 800; font-size: 17px;
+    border: none; cursor: pointer;
+    box-shadow: 0 14px 28px rgba(232,102,79,0.4);
+    transition: transform .15s ease;
+    animation: pulseGlow 2.4s ease-in-out infinite;
+  }
+  .btn-pay:hover { transform: translateY(-2px); }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 14px 28px rgba(232,102,79,0.35); }
+    50% { box-shadow: 0 18px 40px rgba(232,102,79,0.55); }
+  }
+  .price-line { font-size: 13.5px; color: rgba(255,255,255,0.8); }
+  .price-line b { color: #f4c98a; font-size: 15px; }
+  .btn-ghost-link {
+    margin-top: 4px; font-size: 13.5px; color: rgba(255,255,255,0.75);
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+
+  .color-strip { display: flex; height: 8px; }
+  .color-strip span { flex: 1; }
+
+  /* Section shared */
+  section { padding: 72px 0; }
+  .section-head { text-align: center; margin-bottom: 40px; }
+  .section-head .tag {
+    color: var(--coral); font-weight: 700; font-size: 12.5px; letter-spacing: 1px;
+  }
+  .section-head h2 {
+    font-size: clamp(22px, 3.6vw, 30px); font-weight: 800; color: var(--navy);
+    margin-top: 10px; letter-spacing: -0.5px;
+  }
+  .section-head p { color: var(--muted); margin-top: 10px; font-size: 14.5px; }
+
+  /* Who it's for */
+  .who { background: #fff; }
+  .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .who-card {
+    background: var(--cream); border-radius: 18px; padding: 24px 20px;
+    border: 1px solid rgba(27,42,74,0.08);
+  }
+  .who-card .num {
+    display: inline-flex; width: 30px; height: 30px; border-radius: 10px;
+    align-items: center; justify-content: center; font-weight: 800; font-size: 13px;
+    color: #fff; background: var(--coral); margin-bottom: 12px;
+  }
+  .who-card:nth-child(2) .num { background: var(--teal); }
+  .who-card:nth-child(3) .num { background: var(--navy); }
+  .who-card h3 { font-size: 15.5px; color: var(--navy); margin-bottom: 8px; }
+  .who-card p { font-size: 13.2px; color: var(--muted); }
+
+  /* Free trial */
+  .free { background: linear-gradient(180deg, var(--cream) 0%, #fff2e8 100%); }
+  .free-box {
+    max-width: 680px; margin: 0 auto;
+    background: #fff; border-radius: 24px; padding: 34px;
+    border: 1px solid rgba(27,42,74,0.08);
+    box-shadow: 0 20px 40px rgba(27,42,74,0.08);
+  }
+  .free-box label {
+    display: block; font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 10px;
+  }
+  #resume-input {
+    width: 100%; min-height: 160px; padding: 16px; border-radius: 14px;
+    border: 1.5px solid rgba(27,42,74,0.15); font-size: 14px;
+    font-family: inherit; resize: vertical; background: var(--cream);
+  }
+  #resume-input:focus { outline: none; border-color: var(--teal); background: #fff; }
+  .char-count { text-align: right; font-size: 12px; color: var(--muted); margin-top: 6px; margin-bottom: 18px; }
+  #free-btn {
+    width: 100%; background: var(--navy); color: #fff; font-weight: 700;
+    font-size: 15.5px; padding: 16px; border: none; border-radius: 14px; cursor: pointer;
+    transition: background .15s ease;
+  }
+  #free-btn:hover { background: #223763; }
+  #free-btn:disabled { background: #a6adba; cursor: not-allowed; }
+
+  #free-result { margin-top: 26px; }
+  .result-card {
+    background: var(--cream); border-radius: 18px; padding: 24px;
+    border: 1px solid rgba(27,42,74,0.08); animation: fadeIn .35s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform: translateY(0);} }
+  .result-card h4 { color: var(--navy); font-size: 15.5px; margin-bottom: 14px; }
+  .stat-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+  .stat-chip {
+    font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 999px;
+    background: rgba(46,165,154,0.12); color: var(--teal);
+  }
+  .stat-chip.warn { background: rgba(232,102,79,0.12); color: var(--coral); }
+  .issue-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .issue-list li {
+    font-size: 13.5px; color: var(--ink); background: #fff; border-radius: 10px;
+    padding: 12px 14px; border-left: 3px solid var(--coral);
+  }
+  .issue-list li b { color: var(--coral); }
+  .result-empty {
+    font-size: 13.5px; color: var(--ink); background: #fff; border-radius: 10px;
+    padding: 12px 14px; border-left: 3px solid var(--muted);
+  }
+  .teaser {
+    background: linear-gradient(135deg, #1b2a4a, #2c3f68 60%, #3a4f7d);
+    border-radius: 14px; padding: 20px; text-align: center; color: #fff;
+  }
+  .teaser p { font-size: 13.5px; color: rgba(255,255,255,0.85); margin-bottom: 14px; }
+  .teaser p b { color: #f4c98a; }
+  .teaser a {
+    display: inline-block; background: var(--coral); color: #fff; font-weight: 700;
+    font-size: 14.5px; padding: 13px 26px; border-radius: 999px;
+  }
+
+  footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 36px 0; text-align: center; }
+  footer .logo { color: #fff; margin-bottom: 8px; }
+  footer p { font-size: 12.5px; }
+
+  @media (max-width: 720px) {
+    .who-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .free-box { padding: 24px 18px; }
+    .btn-pay { padding: 16px 28px; font-size: 15.5px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">자소서<span>AI</span> 첨삭</div>
+    <a href="#pay" class="btn-nav">29,000원 신청</a>
+  </div>
+</header>
+
+<!-- 1. 히어로 -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">IT 취준생을 위한 AI 자소서 첨삭 리포트</span>
+    <h1>자소서만 붙여넣으면,<br><em>10분 안에 직무 맞춤 첨삭본</em>이 나옵니다</h1>
+    <p class="sub">
+      전 문항 첨삭, 고칠 문장 10개 이상, 직무 키워드 매칭표, 예상 면접질문 10개까지 —
+      지금 쓴 자소서 그대로 붙여넣기만 하면 됩니다.
+    </p>
+    <p class="author">8년차 개발자 · SAP ERP 강사 · IT 취업 도서 저자가 직접 만든 첨삭 리포트</p>
+    <div class="hero-cta">
+      <button id="pay" class="btn-pay" type="button">29,000원으로 첨삭 리포트 받기</button>
+      <span class="price-line">단일가 <b>29,000원</b> · 결제 후 10분 이내 리포트 발송</span>
+      <a href="#free" class="btn-ghost-link">결제 전에 무료로 먼저 체험해보기 ↓</a>
+    </div>
+  </div>
+</section>
+<div class="color-strip">
+  <span style="background:#e8664f"></span>
+  <span style="background:#c9a24b"></span>
+  <span style="background:#2ea59a"></span>
+  <span style="background:#1b2a4a"></span>
+  <span style="background:#8e6bb0"></span>
+  <span style="background:#4f7cac"></span>
+</div>
+
+<!-- 2. 이런 분께 -->
+<section class="who" id="who">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">FOR YOU</span>
+      <h2>이런 고민이라면, 지금이 딱입니다</h2>
+      <p>IT 취업을 준비하며 자소서 앞에서 막힌 순간을 정확히 짚어드립니다.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card">
+        <span class="num">1</span>
+        <h3>몇 번을 고쳐도 광탈만 반복</h3>
+        <p>어디가 문제인지 모른 채 같은 자소서를 이 회사 저 회사에 복붙 지원하고 계신 분</p>
+      </div>
+      <div class="who-card">
+        <span class="num">2</span>
+        <h3>직무 키워드를 어떻게 녹여야 할지 막막</h3>
+        <p>공고가 요구하는 역량과 내 경험을 어떤 단어·표현으로 연결해야 할지 감이 안 잡히는 분</p>
+      </div>
+      <div class="who-card">
+        <span class="num">3</span>
+        <h3>면접까지 이어지지 않는 자소서</h3>
+        <p>서류는 냈지만 예상 면접질문에 대한 준비가 안 돼 있어 면접까지 못 가는 분</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. 무료 체험 -->
+<section class="free" id="free">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">FREE TRIAL</span>
+      <h2>결제 전, 무료로 먼저 진단받아보세요</h2>
+      <p>자소서 문항과 답변을 붙여넣으면 바로 간단 진단 결과를 보여드립니다.</p>
+    </div>
+    <div class="free-box">
+      <label for="resume-input">자소서 문항 + 답변 붙여넣기</label>
+      <textarea id="resume-input" placeholder="예) Q. 지원 동기를 서술하시오.&#10;A. 저는 어릴 때부터 IT에 관심이 많았고 성실하게 노력하여..."></textarea>
+      <div class="char-count"><span id="char-count-num">0</span>자 입력됨</div>
+      <button id="free-btn" type="button">무료로 진단받기</button>
+      <div id="free-result"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo">자소서<span style="color:#f4c98a">AI</span> 첨삭</div>
+    <p style="margin-bottom:4px;">AI 자소서 첨삭 리포트 · 8년차 개발자 · SAP ERP 강사 · IT 취업 도서 저자</p>
+    <p>&copy; 2026 AI 자소서 첨삭 리포트. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  var textarea = document.getElementById('resume-input');
+  var charCountNum = document.getElementById('char-count-num');
+  var freeBtn = document.getElementById('free-btn');
+  var freeResult = document.getElementById('free-result');
+  var payBtn = document.getElementById('pay');
+
+  textarea.addEventListener('input', function () {
+    charCountNum.textContent = textarea.value.length;
+  });
+
+  var GENERIC_PHRASES = [
+    '최선을 다해', '열심히', '성실히', '책임감을 가지고', '노력하겠습니다',
+    '열정을 가지고', '도전정신', '꼼꼼하게', '적극적으로', '긍정적인 마인드'
+  ];
+
+  function splitSentences(text) {
+    return text
+      .split(/(?<=[.!?\n])\s*/)
+      .map(function (s) { return s.trim(); })
+      .filter(function (s) { return s.length > 0; });
+  }
+
+  function renderResult(text) {
+    var sentences = splitSentences(text);
+    var charLen = text.length;
+    var foundIssues = [];
+
+    sentences.forEach(function (sentence) {
+      GENERIC_PHRASES.forEach(function (phrase) {
+        if (sentence.indexOf(phrase) !== -1 && foundIssues.length < 3) {
+          foundIssues.push({ sentence: sentence, phrase: phrase });
+        }
+      });
+    });
+
+    var longSentences = sentences.filter(function (s) { return s.length > 90; });
+
+    var issuesHtml = '';
+    if (foundIssues.length > 0) {
+      issuesHtml += foundIssues.map(function (issue) {
+        var shown = issue.sentence.length > 70 ? issue.sentence.slice(0, 70) + '…' : issue.sentence;
+        return '<li>추상적 표현 발견 — <b>"' + issue.phrase + '"</b><br>"' + shown + '"</li>';
+      }).join('');
+    }
+    if (longSentences.length > 0 && foundIssues.length < 3) {
+      issuesHtml += '<li>문장이 90자를 넘는 곳이 <b>' + longSentences.length + '군데</b> 있습니다. 두 문장으로 나누면 가독성이 좋아집니다.</li>';
+    }
+    if (issuesHtml === '') {
+      issuesHtml = '<div class="result-empty">눈에 띄는 상투적 표현은 없습니다. 다만 직무 키워드 매칭과 문장별 구체성은 유료 리포트에서 더 깊게 확인해보세요.</div>';
+    } else {
+      issuesHtml = '<ul class="issue-list">' + issuesHtml + '</ul>';
+    }
+
+    freeResult.innerHTML =
+      '<div class="result-card">' +
+        '<h4>무료 간단 진단 결과</h4>' +
+        '<div class="stat-row">' +
+          '<span class="stat-chip">총 ' + charLen + '자</span>' +
+          '<span class="stat-chip">문장 ' + sentences.length + '개</span>' +
+          '<span class="stat-chip warn">상투적 표현 ' + foundIssues.length + '개 발견</span>' +
+        '</div>' +
+        issuesHtml +
+        '<div class="teaser">' +
+          '<p>무료 진단에서는 <b>일부 문장</b>만 보여드립니다.<br>유료 리포트는 <b>전 문항 첨삭 + 고칠 문장 10개 이상 + 직무 키워드 매칭표 + 예상 면접질문 10개</b>를 10분 안에 모두 드립니다.</p>' +
+          '<a href="#pay">29,000원으로 전체 리포트 받기</a>' +
+        '</div>' +
+      '</div>';
+  }
+
+  freeBtn.addEventListener('click', function () {
+    var text = textarea.value.trim();
+    if (text.length < 10) {
+      freeResult.innerHTML = '<div class="result-empty">자소서 문항과 답변을 10자 이상 입력해주세요.</div>';
+      return;
+    }
+    freeBtn.disabled = true;
+    freeBtn.textContent = '진단 중...';
+    setTimeout(function () {
+      renderResult(text);
+      freeBtn.disabled = false;
+      freeBtn.textContent = '무료로 진단받기';
+      freeResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 700);
+  });
+
+  payBtn.addEventListener('click', function () {
+    alert('결제 페이지는 추후 연동됩니다. 신청 후 개별 안내드립니다.');
+  });
+</script>
+
+</body>
+</html>

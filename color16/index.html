@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="25문항으로 찾는 나의 컬러 리더십 유형. 16컬러 코드 진단 (약 5분)">
+<meta property="og:title" content="나의 16컬러 코드 찾기">
+<meta property="og:description" content="25문항, 약 5분. 나를 닮은 색과 리더십·이미지 브랜딩 팁을 확인해 보세요.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jaleesky77-hub.github.io/code16/color16/">
+<title>16컬러 코드 진단</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* Layout: one narrow phone-first column; a 4x4 swatch grid is the hero, one question per screen, result as a color "chip card" with leadership/brand detail. */
+:root{
+  --bg:#F6F7F9; --surface:#FFFFFF; --ink:#16181D; --muted:#5E6470; --line:#E1E4EA;
+  --accent:#16181D; --accent-ink:#FFFFFF; --focus:#2F6FB2;
+  --good:#1E7A4C; --warn:#B4442C;
+  --c-red:#D62839; --c-yellow:#F2B705; --c-green:#2E8B57; --c-blue:#1F6FB2;
+  --font-display:"Hahmlet","Nanum Myeongjo",serif;
+  --font-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111317; --surface:#1A1D23; --ink:#EEF0F4; --muted:#A3A9B5; --line:#2C3038;
+  --accent:#EEF0F4; --accent-ink:#111317; --focus:#7EB6EA; --good:#6FCF9A; --warn:#F09A84; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111317; --surface:#1A1D23; --ink:#EEF0F4; --muted:#A3A9B5; --line:#2C3038;
+  --accent:#EEF0F4; --accent-ink:#111317; --focus:#7EB6EA; --good:#6FCF9A; --warn:#F09A84; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.65;margin:0}
+.wrap{max-width:560px;margin:0 auto;padding-inline:18px;padding-block:28px 56px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.3}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:8px}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;color:var(--muted);font-weight:600;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--accent-ink);font-weight:600;font-size:16px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn:hover{opacity:.9}
+
+/* intro */
+.hero{display:grid;gap:22px}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:100%}
+.swatches span{aspect-ratio:1;border-radius:10px;display:block;max-width:100%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.hero h1{font-size:clamp(30px,8vw,40px);font-weight:800;letter-spacing:-.01em}
+.hero p{margin:0;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.facts li{font-size:13.5px;border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--muted);background:var(--surface)}
+.families{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fam{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px;min-width:0}
+.fam i{width:14px;height:14px;border-radius:4px;flex:none;margin-top:5px}
+.fam b{display:block;font-size:14.5px}
+.fam small{color:var(--muted);font-size:13px;line-height:1.5;display:block}
+.note{font-size:13px;color:var(--muted);line-height:1.6;margin:0}
+
+details.qr{border-top:1px solid var(--line);padding-top:14px}
+details.qr summary{cursor:pointer;font-size:14px;color:var(--muted);font-weight:500}
+.qrbox{display:grid;gap:12px;margin-top:14px;justify-items:center;text-align:center}
+.qrbox canvas{background:#fff;border-radius:12px;max-width:100%;height:auto}
+.qrbox input{width:100%;font:inherit;font-size:13px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+
+/* quiz */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.back{background:none;border:0;color:var(--muted);cursor:pointer;padding:6px 0;font-size:14.5px}
+.back[disabled]{visibility:hidden}
+.count{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted)}
+.bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c-red),var(--c-yellow),var(--c-green),var(--c-blue));transition:width .3s ease}
+.section{margin-top:26px}
+.qtext{font-size:clamp(21px,5.6vw,25px);font-weight:700;margin:6px 0 22px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);padding:15px 16px;cursor:pointer;font-size:16px;line-height:1.5;transition:border-color .15s}
+.opt:hover{border-color:var(--muted)}
+.opt .k{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--muted)}
+.opt.sel{border-color:var(--ink)}
+.opt.sel .k{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.opt span:last-child{min-width:0}
+.hint{margin-top:18px;font-size:13px;color:var(--muted);text-align:center}
+
+/* result */
+.rhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.card{border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
+.chip{padding:26px 22px 22px;color:#fff;display:grid;gap:6px;min-height:190px;align-content:end;border-bottom:1px solid var(--line)}
+.chip.light{color:#1a1a1a}
+.chip .code{font-size:12.5px;letter-spacing:.16em;font-weight:600;opacity:.85}
+.chip h2{font-size:clamp(32px,9vw,42px);font-weight:800}
+.chip .title{font-size:17px;font-weight:600}
+.chip .hex{font-size:12px;opacity:.75;font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.body{padding:20px 22px 24px;display:grid;gap:20px}
+.desc{font-size:16.5px;margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-size:13px;padding:3px 11px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.h{font-size:12.5px;letter-spacing:.1em;color:var(--muted);font-weight:600;margin:0 0 8px}
+.scores{display:grid;gap:9px}
+.score{display:grid;grid-template-columns:62px 1fr 34px;align-items:center;gap:10px;font-size:14px}
+.score .track{height:10px;background:var(--bg);border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.score .track i{display:block;height:100%;border-radius:999px}
+.score b{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini{border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px;line-height:1.55;min-width:0}
+.mini p{margin:0}
+.mini .dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.flow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.flow div{border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.5;border:1px solid var(--line);min-width:0}
+.flow b{display:block;font-size:12.5px;letter-spacing:.06em;margin-bottom:2px}
+.flow .ok b{color:var(--good)}
+.flow .over b{color:var(--warn)}
+.balance{border:1px dashed var(--muted);border-radius:12px;padding:12px 14px;font-size:14px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+@media (max-width:400px){.pair,.flow{grid-template-columns:1fr}}
+
+.all{margin-top:40px}
+.all h3{font-size:22px;margin-bottom:6px}
+.fgroup{margin-top:18px}
+.fgroup .ft{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-bottom:8px}
+.fgroup .ft i{width:12px;height:12px;border-radius:3px}
+.grid16{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.g{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);min-width:0;text-align:left;padding:0;cursor:pointer;display:block;width:100%}
+.g:hover{border-color:var(--muted)}
+.g .sw{height:44px;border-bottom:1px solid var(--line)}
+.g div{padding:9px 12px 11px}
+.g b{display:block;font-size:15px}
+.g small{display:block;color:var(--muted);font-size:12.5px;line-height:1.45}
+.g.me{outline:2.5px solid var(--ink);outline-offset:-1px}
+footer{margin-top:40px;font-size:12.5px;color:var(--muted);text-align:center;line-height:1.7}
+@media (min-width:520px){.grid16{grid-template-columns:repeat(4,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+[hidden]{display:none!important}
+img{max-width:100%}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- INTRO -->
+  <section id="intro" class="hero" aria-labelledby="t1">
+    <div class="swatches" id="heroSw" aria-hidden="true"></div>
+    <div>
+      <p class="eyebrow">COLOR LEADERSHIP · 16 COLOR CODE</p>
+      <h1 id="t1">나의 16컬러 코드 찾기</h1>
+    </div>
+    <p>색은 곧 나의 성향이고, 내가 세상과 만나는 방식입니다. 25개의 질문에 답하면 나의 <b>메인 컬러</b>와 <b>서브 컬러</b>가 만나 16가지 중 하나의 컬러 코드가 나옵니다.</p>
+    <ul class="facts">
+      <li>25문항</li><li>문항당 4지선다</li><li>약 5분</li><li>정답 없음</li>
+    </ul>
+    <div class="families" id="fams"></div>
+    <button class="btn" id="startBtn" type="button">진단 시작하기</button>
+    <p class="note">'평소의 나'를 떠올리며 가장 가까운 것 하나를 고르세요. 되고 싶은 모습보다 실제 모습을 고를수록 결과가 정확해집니다.</p>
+
+    <details class="qr" id="qrPanel">
+      <summary>친구에게 공유하기 · 진단 QR 코드</summary>
+      <div class="qrbox">
+        <canvas id="qrCanvas" width="320" height="320" aria-label="진단 페이지로 연결되는 QR 코드"></canvas>
+        <p class="note" id="qrMsg">스마트폰 카메라로 스캔하면 이 진단으로 바로 들어옵니다.</p>
+        <input id="qrUrl" type="hidden">
+        <div class="row">
+          <button class="btn ghost" id="linkCopy" type="button">링크 복사</button>
+          <button class="btn" id="qrSave" type="button" hidden>QR 이미지 저장</button>
+        </div>
+        <button id="qrMake" type="button" hidden></button>
+      </div>
+    </details>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" hidden aria-live="polite">
+    <div class="top">
+      <button class="back" id="backBtn" type="button">← 이전</button>
+      <span class="count" id="count">1 / 25</span>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+    <div class="section">
+      <p class="eyebrow" id="secName"></p>
+      <h2 class="qtext" id="qText"></h2>
+      <div class="opts" id="opts" role="group"></div>
+      <p class="hint">고르면 다음 문항으로 넘어갑니다</p>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" hidden aria-live="polite">
+    <div class="rhead">
+      <p class="eyebrow" id="rEyebrow">나의 16컬러 코드</p>
+      <button class="back" id="rBack" type="button" hidden>← 내 결과로</button>
+    </div>
+    <div class="card">
+      <div class="chip" id="rChip">
+        <span class="code" id="rCode"></span>
+        <h2 id="rName"></h2>
+        <span class="title" id="rTitle"></span>
+        <span class="hex" id="rHex"></span>
+      </div>
+      <div class="body">
+        <p class="desc" id="rDesc"></p>
+        <div>
+          <p class="h">컬러가 상징하는 것</p>
+          <div class="tags" id="rTags"></div>
+        </div>
+        <div class="pair">
+          <div class="mini"><p class="h" style="margin-bottom:4px">리더십 강점</p><p id="rStrength"></p></div>
+          <div class="mini"><p class="h" style="margin-bottom:4px">나와 일할 때 소통법</p><p id="rTalk"></p></div>
+        </div>
+        <div>
+          <p class="h">내 컬러가 팀에 물드는 감정</p>
+          <div class="flow">
+            <div class="ok"><b>건강하게 쓸 때</b><span id="rOk"></span></div>
+            <div class="over"><b>과하게 쓸 때</b><span id="rOver"></span></div>
+          </div>
+        </div>
+        <div id="rScoreBox">
+          <p class="h">컬러 성향 점수 (25점 만점)</p>
+          <div class="scores" id="rScores"></div>
+        </div>
+        <div class="pair">
+          <div class="mini"><p class="h" style="margin-bottom:4px">성장을 돕는 보완 컬러</p><p id="rComp"></p></div>
+          <div class="mini"><p class="h" style="margin-bottom:4px">이미지 브랜딩 팁</p><p id="rTip"></p></div>
+        </div>
+        <div class="balance" id="rBalance" hidden></div>
+      </div>
+    </div>
+    <div class="actions" id="rActions">
+      <button class="btn" id="retryBtn" type="button">다시 진단하기</button>
+      <button class="btn ghost" id="copyBtn" type="button">결과 복사</button>
+    </div>
+    <p class="note" id="copyMsg" aria-live="polite"></p>
+  </section>
+
+  <section class="all" aria-labelledby="t16">
+    <h3 id="t16">16컬러 코드 한눈에 보기</h3>
+    <p class="note">메인 컬러(가장 높은 점수) × 서브 컬러(두 번째 점수)의 조합입니다. 메인 컬러가 4점 이상 앞서면 순수 컬러(레드·옐로우·그린·블루)로 판정합니다. 컬러를 누르면 자세한 설명을 볼 수 있습니다.</p>
+    <div id="groups"></div>
+  </section>
+
+  <footer>
+    본 진단은 자기 이해와 소통을 돕기 위한 성향 도구이며, 임상 심리검사가 아닙니다.<br>
+    색의 의미는 문화와 개인의 경험에 따라 다르게 느껴질 수 있습니다.<br>
+    © 휴앤엠 PIB 컨설팅 · 컬러 리더십 『16컬러 코드』
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+"use strict";
+// 이 진단 페이지의 공유 주소 (QR에 담기는 주소)
+const SHARE_URL = "https://jaleesky77-hub.github.io/code16/color16/";
+
+// 4가지 기본 성향 (원고: 대표 컬러 빨강·노랑·초록·파랑의 리더십 유형)
+const FAM = {
+  R:{name:"레드", en:"RED", color:"var(--c-red)", key:"추진", desc:"목표·속도·결단·도전"},
+  Y:{name:"옐로우", en:"YELLOW", color:"var(--c-yellow)", key:"표현", desc:"아이디어·낙관·표현·영향력"},
+  G:{name:"그린", en:"GREEN", color:"var(--c-green)", key:"조화", desc:"배려·경청·안정·협력"},
+  B:{name:"블루", en:"BLUE", color:"var(--c-blue)", key:"분석", desc:"정확·원칙·계획·신뢰"}
+};
+// 보완 컬러: 대각선 반대 성향 (추진↔조화, 표현↔분석)
+const COMP = {R:"G", G:"R", Y:"B", B:"Y"};
+const COMP_TEXT = {
+  R:"레드의 결단과 속도를 더하면 생각이 실행으로 이어집니다.",
+  G:"그린의 경청과 기다림을 더하면 사람이 함께 따라옵니다.",
+  Y:"옐로우의 유연함과 표현을 더하면 사람들이 쉽게 다가옵니다.",
+  B:"블루의 계획과 꼼꼼함을 더하면 아이디어가 성과로 완성됩니다."
+};
+const ORDER = ["R","Y","G","B"];
+const GRID_ORDER = ["RR","RY","RB","RG","YY","YR","YG","YB","GG","GY","GR","GB","BB","BR","BY","BG"];
+
+// 16컬러 코드: [메인][서브] (같으면 순수 컬러)
+const CODES = {
+  RR:{name:"레드", hex:"#D62839", title:"열정의 추진가", sym:["생명력","열정","사랑","에너지"],
+      desc:"목표가 보이면 망설임 없이 움직이는 행동파입니다. 빠른 결단과 실행력으로 팀을 이끌며, 한 박자 쉬고 경청할 때 리더십이 더 단단해집니다.",
+      strength:"위기에서 결단하고 팀에 속도를 만듭니다.",
+      talk:"결론부터 짧게, 선택지와 기한을 함께 제시해 주세요.",
+      ok:"몰입 · 활력 · 성취감", over:"긴장 · 성과 압박 · 위축",
+      tip:"레드는 넥타이·립·스카프 같은 포인트로 쓰고, 바탕은 네이비·그레이로 무게를 잡으세요."},
+  RY:{name:"오렌지", hex:"#EE7A1E", title:"에너지 동기부여가", sym:["활력","사교","도전","따뜻함"],
+      desc:"열정과 친화력을 함께 지닌 에너지원입니다. 사람들을 북돋우며 목표로 이끌고, 시작한 일을 끝까지 마무리할 때 신뢰가 더욱 커집니다.",
+      strength:"사람들을 북돋워 함께 뛰게 만듭니다.",
+      talk:"가능성에 먼저 공감한 뒤, 실행 계획은 함께 잡아 주세요.",
+      ok:"활기 · 도전의식 · 팀워크", over:"산만함 · 피로 · 마무리 부족",
+      tip:"레드오렌지 포인트는 활력 있는 첫인상을 줍니다. 발표·강연 자리에 특히 효과적이에요."},
+  RB:{name:"블랙", hex:"#1C1C21", title:"카리스마 전략가", sym:["권위","고급","세련","절제"],
+      desc:"냉철한 판단과 강한 추진력을 갖춘 전략가입니다. 세련된 존재감으로 신뢰를 주며, 감정을 표현하면 거리감이 줄고 팀이 가까워집니다.",
+      strength:"냉철한 판단으로 큰 그림을 설계합니다.",
+      talk:"근거와 결론을 간결하게, 감정보다 사실로 이야기해 주세요.",
+      ok:"신뢰 · 명확한 기준 · 안정", over:"거리감 · 침묵 · 위축",
+      tip:"블랙 정장에 화이트 이너나 골드 포인트를 더하면 권위와 친근함이 함께 전달됩니다."},
+  RG:{name:"브라운", hex:"#7A4B2A", title:"든든한 책임자", sym:["대지","성실","신뢰","안정"],
+      desc:"대지처럼 단단하게 책임지고 앞장서는 리더입니다. 결단력에 사람을 지키는 따뜻함이 더해져 든든하며, 혼자 짊어지기보다 나누는 연습이 필요합니다.",
+      strength:"약속을 지키며 팀을 끝까지 책임집니다.",
+      talk:"신뢰를 먼저 쌓고, 약속한 것은 반드시 지켜 주세요.",
+      ok:"안정 · 든든함 · 소속감", over:"고집 · 변화 저항 · 과부하",
+      tip:"브라운·카멜에 크림·아이보리를 더하면 따뜻하고 믿음직한 인상이 됩니다."},
+
+  YY:{name:"옐로우", hex:"#F2C014", title:"낙천적 아이디어 메이커", sym:["창의성","낙천","집중","희망"],
+      desc:"밝고 긍정적인 에너지로 주변을 환하게 만듭니다. 아이디어가 풍부하고 표현력이 뛰어나며, 우선순위를 정하면 창의성이 성과로 이어집니다.",
+      strength:"새로운 아이디어로 분위기를 엽니다.",
+      talk:"아이디어를 먼저 인정해 주고, 우선순위는 함께 정해 주세요.",
+      ok:"개방 · 아이디어 · 확산", over:"산만함 · 불안 · 용두사미",
+      tip:"옐로우는 소품으로 가볍게 쓰세요. 넓은 면적은 불안감을 줄 수 있어요."},
+  YR:{name:"골드", hex:"#C29A2C", title:"빛나는 영향력자", sym:["귀함","성공","품격","영광"],
+      desc:"무대 위에서 빛나는 영향력자입니다. 말과 열정으로 사람을 움직이고 성과로 증명하며, 세부 사항을 함께 챙기면 품격이 완성됩니다.",
+      strength:"말과 열정으로 사람을 움직입니다.",
+      talk:"성과를 공개적으로 인정해 주고, 무대를 함께 만들어 주세요.",
+      ok:"자부심 · 동기부여 · 몰입", over:"과시 · 부담감 · 경쟁",
+      tip:"골드 액세서리 하나로 성공과 품격의 이미지를 더하세요. 퍼플·블랙과도 잘 어울립니다."},
+  YG:{name:"핑크", hex:"#F391B8", title:"따뜻한 분위기 메이커", sym:["부드러움","감성","배려","친근함"],
+      desc:"다정함과 유쾌함으로 사람을 모으는 분위기 메이커입니다. 공감과 배려가 강점이며, 거절도 따뜻하게 표현하는 연습이 나를 지켜 줍니다.",
+      strength:"공감과 다정함으로 사람을 모읍니다.",
+      talk:"관계를 먼저 챙기고, 진심 어린 감사를 표현해 주세요.",
+      ok:"존중 · 편안함 · 소통", over:"결정 지연 · 경계 흐림",
+      tip:"강렬한 레드 대신 로즈핑크·인디안핑크로 친근하면서 신뢰감 있는 인상을 주세요."},
+  YB:{name:"터콰이즈", hex:"#2CC2C4", title:"자유로운 크리에이터", sym:["자유","상쾌함","창의","개성"],
+      desc:"자유로운 상상력에 논리를 더하는 크리에이터입니다. 새로운 아이디어를 구체적인 결과로 설계하며, 완벽보다 실행을 앞세우면 더 빛납니다.",
+      strength:"상상을 구체적인 결과물로 설계합니다.",
+      talk:"시도할 여지를 주고, 결과물을 보며 피드백해 주세요.",
+      ok:"창의성 · 새로움 · 자율", over:"차가움 · 고립감",
+      tip:"터콰이즈·민트 포인트로 산뜻하고 창의적인 퍼스널 브랜드를 표현하세요."},
+
+  GG:{name:"그린", hex:"#2E8B57", title:"평화의 조율자", sym:["균형","치유","평화","성숙"],
+      desc:"균형과 평화를 지키는 조율자입니다. 경청과 인내로 팀에 안정감을 주며, 내 의견도 분명히 말할 때 신뢰가 영향력으로 바뀝니다.",
+      strength:"갈등을 조율하고 팀에 안정감을 줍니다.",
+      talk:"재촉하지 말고, 의견을 물어 말할 자리를 만들어 주세요.",
+      ok:"안정 · 회복 · 협력", over:"침묵 · 정체 · 눈치 보기",
+      tip:"딥그린·올리브 계열은 차분함에 존재감을 더해 줍니다."},
+  GY:{name:"화이트", hex:"#FAFAF7", title:"열린 포용가", sym:["순수","정화","단순함","시작"],
+      desc:"편견 없이 사람을 받아들이고 새로운 시작을 여는 포용가입니다. 어떤 색과도 어울리는 유연함이 강점이며, 내 기준을 분명히 할 때 더 빛납니다.",
+      strength:"누구와도 어울리며 관계를 새롭게 엽니다.",
+      talk:"부담 없는 분위기에서 솔직하게 이야기해 주세요.",
+      ok:"존중 · 개방 · 새 출발", over:"존재감 약화 · 우유부단",
+      tip:"화이트 셔츠·블라우스에 선명한 컬러 하나를 더하면 깨끗한 신뢰감이 완성됩니다."},
+  GR:{name:"마젠타", hex:"#C2187A", title:"헌신적 실천가", sym:["배려","열정","변화","비범함"],
+      desc:"따뜻한 마음을 행동으로 옮기는 실천가입니다. 사람을 위한 일에 열정을 쏟고 변화를 이끌며, 나를 돌보는 시간도 챙겨야 오래 빛납니다.",
+      strength:"배려를 구체적인 행동으로 옮깁니다.",
+      talk:"진심을 알아주고, 도움을 편하게 요청할 수 있게 해 주세요.",
+      ok:"소속감 · 따뜻한 자극", over:"감정 소진 · 과잉 책임",
+      tip:"마젠타는 립·스카프처럼 작은 면적에 쓰고, 그레이·네이비와 매치하세요."},
+  GB:{name:"그레이", hex:"#8B8F96", title:"신중한 중재자", sym:["중립","차분","절제","안정"],
+      desc:"치우치지 않는 시선으로 상황을 차분히 정리하는 중재자입니다. 신중함과 절제로 신뢰를 주며, 생각을 선명하게 표현하면 존재감이 커집니다.",
+      strength:"객관적으로 듣고 균형 있게 판단합니다.",
+      talk:"충분한 정보와 생각할 시간을 함께 주세요.",
+      ok:"안정 · 공정함 · 차분함", over:"무기력 · 피로 · 냉소",
+      tip:"웜그레이로 부드러운 신뢰를 주고, 칙칙함은 선명한 포인트 컬러로 덜어내세요."},
+
+  BB:{name:"블루", hex:"#1F6FB2", title:"원칙의 분석가", sym:["신뢰","냉정","지성","안정"],
+      desc:"원칙과 정확성을 중시하는 분석가입니다. 깊이 있는 사고로 신뢰를 주며, 완벽을 조금 내려놓고 감정을 나누면 소통이 훨씬 편안해집니다.",
+      strength:"정확한 근거로 신뢰를 만듭니다.",
+      talk:"자료와 근거를 준비하고, 변경 사항은 미리 알려 주세요.",
+      ok:"차분 · 논리 · 안정", over:"경직 · 통제 · 냉랭함",
+      tip:"그레이시 블루로 차가움을 덜면 따뜻한 전문가 인상을 줍니다."},
+  BR:{name:"인디고", hex:"#33308C", title:"결단하는 전문가", sym:["통찰","책임","원칙","깊이"],
+      desc:"깊이 있는 분석 위에 빠른 결단을 더하는 전문가입니다. 원칙을 지키며 책임 있게 결정하고, 칭찬과 격려를 더하면 팀의 몰입이 커집니다.",
+      strength:"근거를 바탕으로 신속하게 결정합니다.",
+      talk:"핵심 데이터와 결론을 함께, 군더더기 없이 보고해 주세요.",
+      ok:"신뢰 · 명확함 · 전문성", over:"압박 · 통제 · 방어",
+      tip:"인디고·네이비 수트는 신뢰와 지적 권위를 줍니다. 따뜻함은 이너 컬러로 더하세요."},
+  BY:{name:"퍼플", hex:"#7A3FA0", title:"통찰의 비저너리", sym:["신비","직관","감성","품격"],
+      desc:"깊은 통찰과 직관을 지닌 비저너리입니다. 남다른 관점으로 의미를 발견하며, 생각을 쉬운 언어로 나누면 사람들이 그 비전을 함께 봅니다.",
+      strength:"남다른 관점으로 의미와 방향을 찾습니다.",
+      talk:"큰 그림과 의미를 먼저 나누고, 생각할 시간을 주세요.",
+      ok:"영감 · 깊이 · 자부심", over:"거리감 · 이해 어려움",
+      tip:"부드러운 퍼플을 중심에 두고 블랙·골드 포인트로 정체성과 존재감을 함께 나타내세요."},
+  BG:{name:"블루그린", hex:"#0E7C7B", title:"정직한 신뢰가", sym:["정직","신뢰","치유","균형"],
+      desc:"정직함과 성실함으로 믿음을 쌓는 신뢰가입니다. 정확하게 일하며 사람도 세심히 배려하고, 결정의 순간엔 조금 더 과감해져도 좋습니다.",
+      strength:"정확함과 배려로 오래가는 신뢰를 만듭니다.",
+      talk:"정중하고 차분하게, 절차와 이유를 설명해 주세요.",
+      ok:"신뢰 · 치유 · 안심", over:"소극성 · 결정 지연",
+      tip:"블루그린은 정직하고 신뢰감 있는 인상을 줍니다. 명함·SNS 메인 컬러로 추천해요."}
+};
+
+// 25문항 · 각 4지선다 · 보기마다 하나의 컬러 성향(R/Y/G/B)
+const SECTIONS = ["일과 결정","소통과 관계","스트레스와 갈등","리더십과 팀","이미지와 라이프스타일"];
+const Q = [
+ ["새 프로젝트를 맡으면 나는 먼저",[["R","목표와 마감부터 정하고 바로 움직인다"],["B","자료를 조사하고 단계별 계획을 세운다"],["Y","떠오르는 아이디어를 사람들과 나눈다"],["G","함께할 사람들의 의견과 상황을 살핀다"]]],
+ ["중요한 결정을 내릴 때 내가 가장 믿는 것은?",[["G","함께하는 사람들이 납득하고 편안한지"],["R","나의 판단과 빠른 실행"],["B","근거가 되는 데이터와 사실"],["Y","가슴이 뛰는 가능성과 직감"]]],
+ ["일이 예상보다 늦어지고 있을 때 나는",[["Y","분위기를 띄우며 새로운 방법을 제안한다"],["G","동료들이 지치지 않았는지 먼저 챙긴다"],["R","우선순위를 다시 정하고 속도를 낸다"],["B","어디서 차질이 생겼는지 원인을 분석한다"]]],
+ ["내가 가장 만족스러운 하루는?",[["B","계획한 일을 실수 없이 마무리한 날"],["Y","새로운 사람, 새로운 경험을 만난 날"],["R","어려운 목표를 달성해 낸 날"],["G","주변 사람들과 무탈하게 잘 지낸 날"]]],
+ ["업무 지시를 받을 때 내가 원하는 방식은?",[["R","결론과 기대하는 결과만 짧게"],["G","친절한 설명과 편하게 물어볼 수 있는 분위기"],["B","구체적인 기준과 절차, 예시"],["Y","내 아이디어를 더할 수 있는 여지"]]],
+
+ ["회의에서 나는 주로",[["Y","분위기를 살리고 아이디어를 쏟아낸다"],["B","내용을 정리하고 빠진 부분을 짚는다"],["G","다른 사람의 이야기를 끝까지 들어준다"],["R","논의를 결론으로 이끈다"]]],
+ ["처음 만난 사람과 대화할 때 나는",[["G","맞장구치며 상대를 편하게 해 준다"],["Y","먼저 말을 걸고 금세 친해진다"],["R","용건과 핵심부터 이야기한다"],["B","상대를 충분히 알 때까지 조심스럽다"]]],
+ ["메시지나 이메일을 보낼 때 나는",[["B","내용과 맞춤법을 여러 번 확인한다"],["R","짧고 핵심만, 빠르게 보낸다"],["Y","이모티콘과 감탄사로 감정을 담는다"],["G","오해가 없도록 표현을 부드럽게 다듬는다"]]],
+ ["들었을 때 가장 기쁜 칭찬은?",[["R","“역시 해낼 줄 알았어요”"],["B","“정확하고 믿을 만해요”"],["G","“덕분에 마음이 편했어요”"],["Y","“당신이 있으면 즐거워요”"]]],
+ ["누군가 고민을 털어놓으면 나는",[["Y","기분이 풀리도록 밝게 응원한다"],["R","해결책을 바로 제시한다"],["B","상황을 차근차근 정리해 준다"],["G","판단하지 않고 충분히 들어준다"]]],
+
+ ["스트레스를 받으면 나는 이렇게 되기 쉽다",[["B","생각이 많아지고 예민해진다"],["G","속으로 참다가 혼자 지친다"],["R","말이 빨라지고 날카로워진다"],["Y","산만해지고 일을 여기저기 벌인다"]]],
+ ["의견 충돌이 생기면 나는",[["R","내 입장을 분명히 밝히고 설득한다"],["G","관계가 상하지 않도록 한발 물러선다"],["Y","농담이나 다른 대안으로 분위기를 바꾼다"],["B","사실관계를 따져 무엇이 맞는지 확인한다"]]],
+ ["내가 가장 견디기 힘든 상황은?",[["Y","지루하고 반복적인 일만 계속될 때"],["B","기준 없이 즉흥적으로 일이 바뀔 때"],["R","결정이 미뤄지고 진척이 없을 때"],["G","사람들 사이 분위기가 냉랭할 때"]]],
+ ["실수를 했을 때 나는",[["G","피해를 본 사람에게 먼저 미안해한다"],["B","왜 그랬는지 꼼꼼히 되짚어 본다"],["R","빨리 수습하고 다음으로 넘어간다"],["Y","털어 버리고 긍정적으로 생각하려 한다"]]],
+ ["나의 에너지 충전법은?",[["R","운동이나 새로운 도전으로 땀을 낸다"],["Y","사람들과 수다 떨며 어울린다"],["B","혼자 조용히 책이나 영상으로 생각을 정리한다"],["G","익숙한 공간에서 편안하게 쉰다"]]],
+
+ ["팀을 이끌게 된다면 나는",[["B","체계와 기준을 세워 실수를 줄인다"],["R","방향을 제시하고 앞장서서 이끈다"],["G","팀원 한 사람 한 사람을 챙긴다"],["Y","비전을 이야기하며 동기를 불어넣는다"]]],
+ ["팀원이 성과를 내지 못할 때 나는",[["Y","할 수 있다고 격려하며 자신감을 준다"],["G","개인적인 어려움은 없는지 묻는다"],["B","업무 과정을 함께 점검한다"],["R","목표를 다시 분명히 하고 기한을 정한다"]]],
+ ["팀에서 내가 자주 맡는 역할은?",[["G","갈등을 조율하는 중재자"],["R","결정을 내리는 추진자"],["Y","분위기를 만드는 아이디어 뱅크"],["B","실수를 잡아내는 검토자"]]],
+ ["좋은 리더의 가장 중요한 조건은?",[["B","공정한 원칙과 전문성"],["Y","사람을 움직이는 열정과 비전"],["R","위기 상황에서의 결단력"],["G","구성원을 존중하는 따뜻함"]]],
+ ["조직에 큰 변화가 생기면 나는",[["R","기회로 보고 먼저 뛰어든다"],["B","장단점을 따져 보고 신중하게 받아들인다"],["G","모두가 잘 적응하도록 속도를 맞춘다"],["Y","새로움이 설레고 재미있다"]]],
+
+ ["사람들이 나를 처음 보고 자주 하는 말은?",[["Y","밝고 유쾌해 보인다"],["R","당당하고 카리스마 있다"],["B","차분하고 똑똑해 보인다"],["G","편안하고 친절해 보인다"]]],
+ ["중요한 자리에 갈 때 손이 가는 옷은?",[["B","군더더기 없이 단정한 스타일"],["G","부드러운 톤의 편안한 스타일"],["R","강렬한 포인트가 있는 존재감 있는 스타일"],["Y","트렌디하고 개성 있는 스타일"]]],
+ ["자유여행을 계획할 때 나는",[["G","동행이 원하는 곳에 맞춰 정한다"],["B","동선·예산·예약을 미리 꼼꼼히 정리한다"],["Y","현지에서 끌리는 대로 즉흥적으로 다닌다"],["R","꼭 해 볼 버킷리스트를 정하고 알차게 돈다"]]],
+ ["나에게 가장 끌리는 단어는?",[["R","도전 · 성취"],["G","평화 · 공감"],["B","신뢰 · 정확"],["Y","자유 · 즐거움"]]],
+ ["내가 되고 싶은 사람은?",[["Y","사람들에게 영감과 웃음을 주는 사람"],["B","누구에게나 믿음을 주는 전문가"],["R","큰 목표를 이뤄 내는 사람"],["G","곁에 있으면 힘이 되는 사람"]]]
+];
+
+// 채점: 1문항 1점. 동점이면 뒤 문항(정체성 문항)에서 더 늦게 선택된 컬러가 우선.
+function rank(answers){
+  const s = {R:0,Y:0,G:0,B:0};
+  const last = {R:-1,Y:-1,G:-1,B:-1};
+  answers.forEach((a,i)=>{ if(a){ s[a]++; last[a]=i; } });
+  const order = ORDER.slice().sort((a,b)=> s[b]-s[a] || last[b]-last[a] || ORDER.indexOf(a)-ORDER.indexOf(b));
+  return {s, order};
+}
+function judge(answers){
+  const {s, order} = rank(answers);
+  const main = order[0], sub = order[1];
+  const pure = s[main] - s[sub] >= 4;
+  const code = pure ? main+main : main+sub;
+  const vals = ORDER.map(k=>s[k]);
+  const balanced = Math.max(...vals) - Math.min(...vals) <= 2;
+  return {s, main, sub, pure, code, balanced};
+}
+
+// ---------- UI ----------
+const $ = id => document.getElementById(id);
+const answers = new Array(Q.length).fill(null);
+let idx = 0;
+let myResult = null;
+
+function isLight(hex){
+  const n = parseInt(hex.slice(1),16), r=n>>16&255, g=n>>8&255, b=n&255;
+  return (0.299*r+0.587*g+0.114*b) > 160;
+}
+function el(tag, attrs={}, text){
+  const e = document.createElement(tag);
+  for(const k in attrs){ if(k==="style") e.style.cssText = attrs[k]; else e.setAttribute(k, attrs[k]); }
+  if(text!=null) e.textContent = text;
+  return e;
+}
+function codeLabel(c){ return c[0]===c[1] ? FAM[c[0]].name+" 순수형" : FAM[c[0]].name+" + "+FAM[c[1]].name; }
+
+function renderIntro(){
+  const sw = $("heroSw");
+  GRID_ORDER.forEach(c=> sw.appendChild(el("span",{style:"background:"+CODES[c].hex,title:CODES[c].name})));
+  const fams = $("fams");
+  ORDER.forEach(k=>{
+    const f = el("div",{class:"fam"});
+    f.appendChild(el("i",{style:"background:"+FAM[k].color}));
+    const t = el("div"); t.appendChild(el("b",{},FAM[k].name+" · "+FAM[k].key)); t.appendChild(el("small",{},FAM[k].desc));
+    f.appendChild(t); fams.appendChild(f);
+  });
+  const groups = $("groups");
+  ORDER.forEach(k=>{
+    const sec = el("div",{class:"fgroup"});
+    const ft = el("div",{class:"ft"}); ft.appendChild(el("i",{style:"background:"+FAM[k].color})); ft.appendChild(document.createTextNode("메인 "+FAM[k].name+" · "+FAM[k].key));
+    sec.appendChild(ft);
+    const grid = el("div",{class:"grid16"});
+    GRID_ORDER.filter(c=>c[0]===k).forEach(c=>{
+      const d = CODES[c];
+      const box = el("button",{type:"button",class:"g",id:"g-"+c,"aria-label":d.name+" 자세히 보기"});
+      box.appendChild(el("span",{class:"sw",style:"display:block;background:"+d.hex}));
+      const t = el("div");
+      t.appendChild(el("b",{},d.name));
+      t.appendChild(el("small",{},d.title));
+      t.appendChild(el("small",{},codeLabel(c)));
+      box.appendChild(t);
+      box.addEventListener("click",()=>renderCard(c,null));
+      grid.appendChild(box);
+    });
+    sec.appendChild(grid); groups.appendChild(sec);
+  });
+}
+
+function show(id){
+  ["intro","quiz","result"].forEach(s=> $(s).hidden = (s!==id));
+  window.scrollTo({top:0});
+}
+
+function renderQ(){
+  const [text, opts] = Q[idx];
+  $("count").textContent = (idx+1)+" / "+Q.length;
+  $("barFill").style.width = (idx/Q.length*100)+"%";
+  $("secName").textContent = SECTIONS[Math.floor(idx/5)];
+  $("qText").textContent = "Q"+(idx+1)+". "+text;
+  $("backBtn").disabled = idx===0;
+  const box = $("opts"); box.textContent = "";
+  opts.forEach(([fam, label], i)=>{
+    const b = el("button",{type:"button",class:"opt"+(answers[idx]===fam?" sel":""),id:"opt-"+idx+"-"+i});
+    b.appendChild(el("span",{class:"k"},"ABCD"[i]));
+    b.appendChild(el("span",{},label));
+    b.addEventListener("click",()=>pick(fam,b));
+    box.appendChild(b);
+  });
+}
+let locked = false;
+function pick(fam, btn){
+  if(locked) return; locked = true;
+  answers[idx] = fam;
+  document.querySelectorAll(".opt").forEach(o=>o.classList.remove("sel"));
+  btn.classList.add("sel");
+  setTimeout(()=>{
+    locked = false;
+    if(idx < Q.length-1){ idx++; renderQ(); }
+    else { $("barFill").style.width="100%"; myResult = judge(answers); renderCard(myResult.code, myResult); }
+  }, 220);
+}
+
+// r: 진단 결과(점수 포함) 또는 null(16컬러 둘러보기)
+let lastText = "";
+function renderCard(code, r){
+  const d = CODES[code];
+  const own = !!r;
+  $("rEyebrow").textContent = own ? "나의 16컬러 코드" : "16컬러 코드 살펴보기";
+  $("rBack").hidden = own;
+  $("rBack").textContent = myResult ? "← 내 결과로" : "← 처음으로";
+  $("rActions").hidden = !own;
+  const chip = $("rChip");
+  chip.style.background = d.hex;
+  chip.classList.toggle("light", isLight(d.hex));
+  const m = code[0], s = code[1];
+  $("rCode").textContent = m===s ? FAM[m].en+" · PURE" : FAM[m].en+" × "+FAM[s].en;
+  $("rName").textContent = d.name;
+  $("rTitle").textContent = d.title;
+  $("rHex").textContent = d.hex+"  ·  "+codeLabel(code);
+  $("rDesc").textContent = d.desc;
+  const tags = $("rTags"); tags.textContent="";
+  d.sym.forEach(t=>tags.appendChild(el("span",{},"#"+t)));
+  $("rStrength").textContent = d.strength;
+  $("rTalk").textContent = d.talk;
+  $("rOk").textContent = d.ok;
+  $("rOver").textContent = d.over;
+  $("rScoreBox").hidden = !own;
+  if(own){
+    const sc = $("rScores"); sc.textContent="";
+    ORDER.slice().sort((a,b)=>r.s[b]-r.s[a]).forEach(k=>{
+      const row = el("div",{class:"score"});
+      row.appendChild(el("span",{},FAM[k].name));
+      const tr = el("div",{class:"track"}); tr.appendChild(el("i",{style:"width:"+(r.s[k]/Q.length*100)+"%;background:"+FAM[k].color}));
+      row.appendChild(tr);
+      row.appendChild(el("b",{},String(r.s[k])));
+      sc.appendChild(row);
+    });
+  }
+  const c = COMP[m];
+  const comp = $("rComp"); comp.textContent="";
+  comp.appendChild(el("span",{class:"dot",style:"background:"+FAM[c].color}));
+  comp.appendChild(document.createTextNode(FAM[c].name+" · "+COMP_TEXT[c]));
+  $("rTip").textContent = d.tip;
+  const bal = $("rBalance");
+  bal.hidden = !(own && r.balanced);
+  bal.textContent = (own && r.balanced) ? "육각형 밸런스: 네 가지 성향 점수가 고르게 나왔습니다. 상황에 맞게 여러 색을 꺼내 쓰는 유연함이 강점입니다. 서브 컬러도 함께 살펴보세요." : "";
+  document.querySelectorAll(".g").forEach(g=>g.classList.remove("me"));
+  if(myResult){ const mine = $("g-"+myResult.code); if(mine) mine.classList.add("me"); }
+  if(own){
+    lastText = "[나의 16컬러 코드] "+d.name+" — "+d.title+"\n"+d.desc+"\n강점: "+d.strength+"\n점수: "+ORDER.map(k=>FAM[k].name+" "+r.s[k]).join(" / ");
+    $("copyMsg").textContent = "";
+  }
+  show("result");
+}
+
+$("startBtn").addEventListener("click",()=>{ answers.fill(null); idx=0; renderQ(); show("quiz"); });
+$("backBtn").addEventListener("click",()=>{ if(idx>0){ idx--; renderQ(); } });
+$("retryBtn").addEventListener("click",()=>{ answers.fill(null); idx=0; myResult=null; renderQ(); show("quiz"); });
+$("rBack").addEventListener("click",()=>{ if(myResult) renderCard(myResult.code, myResult); else show("intro"); });
+$("copyBtn").addEventListener("click",()=>{
+  const msg = $("copyMsg");
+  try{
+    navigator.clipboard.writeText(lastText).then(()=>{ msg.textContent="결과를 복사했습니다. 메신저에 붙여 넣어 공유해 보세요."; })
+      .catch(()=>{ msg.textContent = lastText; });
+  }catch(e){ msg.textContent = lastText; }
+});
+
+// ---------- QR ----------
+function drawQR(url){
+  const cv = $("qrCanvas"), ctx = cv.getContext("2d"), msg = $("qrMsg");
+  ctx.fillStyle="#fff"; ctx.fillRect(0,0,cv.width,cv.height);
+  if(!url){ msg.textContent = "아래 칸에 진단 페이지 주소를 넣고 'QR 다시 만들기'를 누르세요."; return false; }
+  if(typeof qrcode !== "function"){ msg.textContent = "QR 도구를 불러오지 못했습니다. 잠시 후 새로고침해 주세요."; return false; }
+  const qr = qrcode(0,"M"); qr.addData(url); qr.make();
+  const n = qr.getModuleCount(), quiet = 4, size = cv.width, cell = Math.floor(size/(n+quiet*2));
+  const off = Math.floor((size - cell*n)/2);
+  ctx.fillStyle="#111";
+  for(let y=0;y<n;y++) for(let x=0;x<n;x++) if(qr.isDark(y,x)) ctx.fillRect(off+x*cell, off+y*cell, cell, cell);
+  msg.textContent = "스마트폰 카메라로 스캔하면 이 진단으로 바로 들어옵니다.";
+  return true;
+}
+function makeQR(){
+  const ok = drawQR($("qrUrl").value.trim());
+  $("qrSave").hidden = !ok;
+}
+$("qrMake").addEventListener("click", makeQR);
+$("qrSave").addEventListener("click", ()=>{
+  const a = document.createElement("a");
+  a.href = $("qrCanvas").toDataURL("image/png");
+  a.download = "16컬러코드_진단_QR.png";
+  document.body.appendChild(a); a.click(); a.remove();
+});
+$("linkCopy").addEventListener("click", ()=>{
+  const msg = $("qrMsg");
+  try{ navigator.clipboard.writeText(SHARE_URL).then(()=>{ msg.textContent="링크를 복사했습니다. 메신저에 붙여 넣어 보내 보세요."; }).catch(()=>{ msg.textContent=SHARE_URL; }); }
+  catch(e){ msg.textContent=SHARE_URL; }
+});
+$("qrPanel").addEventListener("toggle", ()=>{ if($("qrPanel").open) makeQR(); });
+
+renderIntro();
+$("qrUrl").value = SHARE_URL;
+</script>
+</body>
+</html>

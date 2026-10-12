@@ -79,7 +79,10 @@ details.qr summary{cursor:pointer;font-size:14px;color:var(--muted);font-weight:
 .opt.sel{border-color:var(--ink)}
 .opt.sel .k{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .opt span:last-child{min-width:0}
-.hint{margin-top:18px;font-size:13px;color:var(--muted);text-align:center}
+.hint{margin-top:14px;font-size:13px;color:var(--muted);text-align:center}
+.qnav{display:flex;gap:10px;margin-top:22px}
+.qnav .btn{flex:1;padding:13px 16px;letter-spacing:.04em}
+.qnav .btn[disabled]{opacity:.35;cursor:default}
 
 /* result */
 .rhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
@@ -176,7 +179,11 @@ img{max-width:100%}
       <p class="eyebrow" id="secName"></p>
       <h2 class="qtext" id="qText"></h2>
       <div class="opts" id="opts" role="group"></div>
-      <p class="hint">고르면 다음 문항으로 넘어갑니다</p>
+      <div class="qnav">
+        <button class="btn ghost" id="prevBtn" type="button">← BACK</button>
+        <button class="btn" id="nextBtn" type="button">NEXT →</button>
+      </div>
+      <p class="hint">답을 고르면 다음 문항으로 넘어갑니다. BACK으로 돌아가 답을 바꿀 수 있어요.</p>
     </div>
   </section>
 
@@ -482,6 +489,9 @@ function renderQ(){
   $("secName").textContent = SECTIONS[Math.floor(idx/5)];
   $("qText").textContent = "Q"+(idx+1)+". "+text;
   $("backBtn").disabled = idx===0;
+  $("prevBtn").disabled = idx===0;
+  $("nextBtn").disabled = !answers[idx];
+  $("nextBtn").textContent = idx===Q.length-1 ? "결과 보기 →" : "NEXT →";
   const box = $("opts"); box.textContent = "";
   opts.forEach(([fam, label], i)=>{
     const b = el("button",{type:"button",class:"opt"+(answers[idx]===fam?" sel":""),id:"opt-"+idx+"-"+i});
@@ -497,12 +507,15 @@ function pick(fam, btn){
   answers[idx] = fam;
   document.querySelectorAll(".opt").forEach(o=>o.classList.remove("sel"));
   btn.classList.add("sel");
-  setTimeout(()=>{
-    locked = false;
-    if(idx < Q.length-1){ idx++; renderQ(); }
-    else { $("barFill").style.width="100%"; myResult = judge(answers); renderCard(myResult.code, myResult); }
-  }, 220);
+  setTimeout(()=>{ locked = false; goNext(); }, 220);
 }
+function goNext(){
+  if(!answers[idx]) return;
+  if(idx < Q.length-1){ idx++; renderQ(); }
+  else if(answers.every(a=>a)){ $("barFill").style.width="100%"; myResult = judge(answers); renderCard(myResult.code, myResult); }
+  else { idx = answers.findIndex(a=>!a); renderQ(); }
+}
+function goBack(){ if(idx>0){ idx--; renderQ(); } }
 
 // r: 진단 결과(점수 포함) 또는 null(16컬러 둘러보기)
 let lastText = "";
@@ -558,7 +571,9 @@ function renderCard(code, r){
 }
 
 $("startBtn").addEventListener("click",()=>{ answers.fill(null); idx=0; renderQ(); show("quiz"); });
-$("backBtn").addEventListener("click",()=>{ if(idx>0){ idx--; renderQ(); } });
+$("backBtn").addEventListener("click",goBack);
+$("prevBtn").addEventListener("click",goBack);
+$("nextBtn").addEventListener("click",goNext);
 $("retryBtn").addEventListener("click",()=>{ answers.fill(null); idx=0; myResult=null; renderQ(); show("quiz"); });
 $("rBack").addEventListener("click",()=>{ if(myResult) renderCard(myResult.code, myResult); else show("intro"); });
 $("copyBtn").addEventListener("click",()=>{
